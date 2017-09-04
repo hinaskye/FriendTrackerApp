@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Friend Tracker</string>
+    <!--Friend List-->
+    <string name="ok_label">OK</string>
+
+    <!--Edit Friend-->
+    <string name="edit_friend_title">Edit</string>
+    <string name="edit_friend_name_text">Name</string>
+    <string name="email_text">Email</string>
+    <string name="birthday_text">Birthday</string>
+    <string name="edit_birthday">Select Birthday</string>
+    <string name="remove_friend_text">Delete</string>
+
+    <!--Menu-->
+    <string name="display_friend_list_text">Show Friends</string>
+    <string name="add_contact_text">Add Friend</string>
+    <string name="display_meeting_text">Show Meetings</string>
+    <string name="add_meeting_text">Add Meeting</string>
+
+    <!--Meeting-->
+    <string name="meeting_title">Meeting</string>
+    <string name="meeting_title_text">Title</string>
+    <string name="meeting_title_hint">Insert a Title</string>
+    <string name="meeting_start_time_text">Start Time</string>
+    <string name="meeting_start_time_hint">Select start time</string>
+    <string name="meeting_end_time_text">End Time</string>
+    <string name="meeting_end_time_hint">Select end time</string>
+    <string name="meeting_friend_list_text">Friends</string>
+    <string name="meeting_location_text">Location</string>
+    <string name="meeting_location_hint">Select a location</string>
+    <string name="add_meeting_button_text">Add</string>
+    <string name="remove_meeting_text">Delete</string>
+</resources>

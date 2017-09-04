@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/meeting_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/meeting_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/meeting_title_hint" />
+
+    <TextView
+        android:id="@+id/meeting_start_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_start_time_text"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/meeting_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/meeting_start_time_hint" />
+
+    <TextView
+        android:id="@+id/meeting_end_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_end_time_text"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/meeting_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/meeting_end_time_hint" />
+
+    <TextView
+        android:id="@+id/meeting_friend_list_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_friend_list_text"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/meeting_location_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_location_text"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/meeting_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/meeting_location_hint" />
+
+    <Button
+        android:id="@+id/add_meeting_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_meeting_button_text" />
+</LinearLayout>
