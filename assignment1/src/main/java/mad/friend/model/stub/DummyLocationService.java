@@ -18,9 +18,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
-//import mad.friend.simple.R;
 import hinaskye.assignment1.R;
 import mad.friend.model.FriendModel;
 
@@ -48,7 +48,7 @@ public class DummyLocationService
         @Override
         public String toString()
         {
-            return String.format("Time=%s, id=%s, name=%s, lat=%.5f, long=%.5f", DateFormat.getTimeInstance(
+            return String.format(Locale.getDefault(), "Time=%s, id=%s, name=%s, lat=%.5f, long=%.5f", DateFormat.getTimeInstance(
                     DateFormat.MEDIUM).format(time), id, name, latitude, longitude);
         }
 
@@ -88,16 +88,23 @@ public class DummyLocationService
     private boolean timeInRange(Date source, Date target, int periodMinutes, int periodSeconds)
     {
         Calendar sourceCal = Calendar.getInstance();
-        sourceCal.setTime(source);
-
-        // set up start and end range match
-        // +/- period minutes/seconds to check
         Calendar targetCalStart = Calendar.getInstance();
+        Calendar targetCalEnd = Calendar.getInstance();
+        // set the calendars for comparison
+        sourceCal.setTime(source);
         targetCalStart.setTime(target);
+        targetCalEnd.setTime(target);
+
+        // copy unchecked day/month/year portion of target to source so it always matches
+        // this removes the implicit TimeInstance precondition from Assignment 1
+        sourceCal.set(Calendar.DAY_OF_MONTH, targetCalStart.get(Calendar.DAY_OF_MONTH));
+        sourceCal.set(Calendar.MONTH, targetCalStart.get(Calendar.MONTH));
+        sourceCal.set(Calendar.YEAR, targetCalStart.get(Calendar.YEAR));
+
+        // set up start and end range match for mins/secs
+        // +/- period minutes/seconds to check
         targetCalStart.set(Calendar.MINUTE, targetCalStart.get(Calendar.MINUTE) - periodMinutes);
         targetCalStart.set(Calendar.SECOND, targetCalStart.get(Calendar.SECOND) - periodSeconds);
-        Calendar targetCalEnd = Calendar.getInstance();
-        targetCalEnd.setTime(target);
         targetCalEnd.set(Calendar.MINUTE, targetCalEnd.get(Calendar.MINUTE) + periodMinutes);
         targetCalEnd.set(Calendar.SECOND, targetCalEnd.get(Calendar.SECOND) + periodMinutes);
 
@@ -112,7 +119,7 @@ public class DummyLocationService
         // resource reference to dummy_data.txt in res/raw/ folder of your project
         try (Scanner scanner = new Scanner(context.getResources().openRawResource(R.raw.dummy_data)))
         {
-            // match comma and 0 or more whitepace (to catch newlines)
+            // match comma and 0 or more whitespace (to catch newlines)
             scanner.useDelimiter(",\\s*");
             while (scanner.hasNext())
             {
@@ -131,8 +138,7 @@ public class DummyLocationService
         {
             Log.i(LOG_TAG, "ParseException Caught (Incorrect File Format)");
         }
-    }
-    // singleton support
+    }// singleton support
     private static class LazyHolder {
         static final DummyLocationService INSTANCE = new DummyLocationService();
     }
