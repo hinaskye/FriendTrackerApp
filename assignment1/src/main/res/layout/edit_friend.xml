@@ -37,11 +37,11 @@
         android:text="@string/birthday_text"
         android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/edit_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_birthday"
+        android:text="@string/edit_birthday"
         android:paddingBottom="8dp" />
 
     <Button

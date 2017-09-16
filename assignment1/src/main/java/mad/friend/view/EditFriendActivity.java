@@ -37,7 +37,7 @@ public class EditFriendActivity extends AppCompatActivity
         // variables
         TextView name = (TextView) findViewById(R.id.edit_friend_name);
         TextView email = (TextView) findViewById(R.id.friend_email_text);
-        EditText birthday = (EditText) findViewById(R.id.edit_birthday);
+        TextView birthday = (TextView) findViewById(R.id.edit_birthday);
         Bundle extras = getIntent().getExtras();
 
         // This view should only be called when we select a friend on our friend list

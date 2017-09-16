@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,10 +23,10 @@ import mad.friend.model.Friend;
 public class BirthdayListener implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     Activity current;
-    EditText editText;
+    TextView editText;
     Friend friend;
 
-    public BirthdayListener(Activity caller, EditText editText, Friend friend)
+    public BirthdayListener(Activity caller, TextView editText, Friend friend)
     {
         current = caller;
         this.editText = editText;
