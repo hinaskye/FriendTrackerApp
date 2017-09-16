@@ -3,11 +3,8 @@ package mad.friend.model.stub;
 import android.content.Context;
 import android.util.Log;
 
-import java.text.DateFormat;
-import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
-
-import mad.friend.model.FriendModel;
 
 // Suppoort code by Caspar for MAD assignment s2 2017
 // Simple example to test dummy location service (for demonstration only)
@@ -20,23 +17,19 @@ public class TestLocationService
     // call this method to run simple hard coded test
     public static void test(Context context)
     {
-        DummyLocationService dummyLocationService=DummyLocationService.getSingletonInstance(context);
-
+        DummyLocationService dummyLocationService = DummyLocationService.getSingletonInstance(context);
         Log.i(LOG_TAG, "File Contents:");
         dummyLocationService.logAll();
-        List<DummyLocationService.FriendLocation> matched = null;
-        try
-        {
-            // 2 mins either side of 9:46:30 AM
-            matched = dummyLocationService.getFriendLocationsForTime(DateFormat.getTimeInstance(
-                    DateFormat.MEDIUM).parse("9:44:30 AM"), 2, 0);
-        } catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
+
+        // 2 mins either side of 9:46:30 AM
+        // note the relaxed precondition for Assignment 2 can pass any type of Date()
+        // but will need to change system clock or dummy_data.txt to get a match!
+        List<DummyLocationService.FriendLocation> matched = dummyLocationService
+                .getFriendLocationsForTime(new Date(), 2, 0);
         Log.i(LOG_TAG, "Matched Query:");
         dummyLocationService.log(matched);
-        // Will any any matched result of friend's location to our friend model
+
+        // Will add any matched result of friend's location to our friend model
         for(DummyLocationService.FriendLocation match : matched)
         {
             match.addToFriendModel();
