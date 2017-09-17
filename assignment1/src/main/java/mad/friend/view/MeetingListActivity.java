@@ -70,6 +70,12 @@ public class MeetingListActivity extends AppCompatActivity
         this.getMenuInflater().inflate(R.menu.meeting_list_menu_options,menu);
 
         //Menu items listeners
+
+        //Add Meeting
+        MenuItem addMeetingMenuItem = menu.findItem(R.id.add_meeting_item);
+        addMeetingMenuItem.setOnMenuItemClickListener(new AddMeetingListener(this));
+
+
         //Display friend list
         MenuItem displayFriendListMenuItem = menu.findItem(R.id.display_friend_list_item);
         displayFriendListMenuItem.setOnMenuItemClickListener(new DisplayFriendListListener(this));

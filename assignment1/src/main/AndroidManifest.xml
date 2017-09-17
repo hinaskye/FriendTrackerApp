@@ -30,12 +30,11 @@
             android:label="@string/meeting_title" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name="mad.friend.view.AddMeetingActivity"
-            android:label="@string/meeting_title" >
+            android:label="@string/add_meeting_title" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

@@ -16,6 +16,8 @@ public class Meeting implements MeetingInterface {
     private Date endTime;
     private List<Friend> friendsInvited;
     private Location location;
+    private double latitude;
+    private double longitude;
 
     public Meeting() {}
 
@@ -33,6 +35,18 @@ public class Meeting implements MeetingInterface {
         this.endTime = endTime;
         friendsInvited = invited;
         this.location = location;
+    }
+
+    public Meeting(String id, String title, Date startTime, Date endTime,
+                   List<Friend> invited, double latitude, double longitude)
+    {
+        this.id = id;
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        friendsInvited = invited;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override
@@ -93,5 +107,29 @@ public class Meeting implements MeetingInterface {
     @Override
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    @Override
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    @Override
+    public void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    @Override
+    public double getLongitude()
+    {
+        return longitude;
+    }
+
+    @Override
+    public void setLongitude(double longitude)
+    {
+        this.longitude = longitude;
     }
 }

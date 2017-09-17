@@ -2,6 +2,7 @@ package mad.friend.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.MenuItem;
 import android.view.View;
 
 import mad.friend.model.Meeting;
@@ -11,7 +12,7 @@ import mad.friend.view.AddMeetingActivity;
 /**
  * Add Meeting Listener, creates an add meeting intent and starts the activity
  */
-public class AddMeetingListener implements View.OnClickListener {
+public class AddMeetingListener implements View.OnClickListener, MenuItem.OnMenuItemClickListener {
 
     private Activity current;
 
@@ -24,5 +25,12 @@ public class AddMeetingListener implements View.OnClickListener {
     public void onClick(View v) {
         Intent addMeetingIntent = new Intent(current, AddMeetingActivity.class);
         current.startActivity(addMeetingIntent);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Intent addMeetingIntent = new Intent(current, AddMeetingActivity.class);
+        current.startActivity(addMeetingIntent);
+        return true;
     }
 }

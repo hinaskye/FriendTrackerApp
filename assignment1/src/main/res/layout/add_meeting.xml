@@ -9,13 +9,14 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/meeting_title_text"
+        android:id="@+id/meeting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/meeting_title_text"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/meeting_title"
+        android:id="@+id/edit_meeting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/meeting_title_hint" />
@@ -60,15 +61,43 @@
         android:text="@string/meeting_location_text"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/meeting_location"
-        android:layout_width="wrap_content"
+    <!-- Location -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/meeting_location_hint" />
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/add_meeting_button"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/meeting_latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/meeting_latitude_hint" />
+
+        <EditText
+            android:id="@+id/meeting_longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/meeting_longitude_hint" />
+    </LinearLayout>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_meeting_button_text" />
+        android:orientation="horizontal"
+        android:gravity="right" >
+
+        <Button
+            android:id="@+id/remove_meeting_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove_meeting_text" />
+
+        <Button
+            android:id="@+id/add_meeting_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_meeting_button_text" />
+    </LinearLayout>
+
 </LinearLayout>
