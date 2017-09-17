@@ -22,15 +22,21 @@
     <string name="add_meeting_title">Adding Meeting..</string>
     <string name="meeting_title_text">Meeting Title</string>
     <string name="meeting_title_hint">Title</string>
+
+    <string name="meeting_date_text">Date</string>
+    <string name="meeting_date_hint">Date</string>
     <string name="meeting_start_time_text">Start Time</string>
     <string name="meeting_start_time_hint">Start time</string>
     <string name="meeting_end_time_text">End Time</string>
     <string name="meeting_end_time_hint">End time</string>
+
     <string name="meeting_friend_list_text">Friends</string>
+
     <string name="meeting_location_text">Location</string>
     <string name="meeting_location_hint">Location</string>
     <string name="meeting_latitude_hint">Latitude</string>
     <string name="meeting_longitude_hint">Longitude</string>
+
     <string name="add_meeting_button_text">Add</string>
     <string name="remove_meeting_text">Delete</string>
 </resources>

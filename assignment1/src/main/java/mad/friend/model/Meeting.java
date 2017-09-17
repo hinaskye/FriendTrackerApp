@@ -2,7 +2,6 @@ package mad.friend.model;
 
 import android.location.Location;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import java.util.List;
 public class Meeting implements MeetingInterface {
     private String id;
     private String title;
+    private Date date;
     private Date startTime;
     private Date endTime;
     private List<Friend> friendsInvited;
@@ -62,6 +62,18 @@ public class Meeting implements MeetingInterface {
     @Override
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public Date getDate()
+    {
+        return date;
+    }
+
+    @Override
+    public void setDate(Date date)
+    {
+        this.date = date;
     }
 
     @Override

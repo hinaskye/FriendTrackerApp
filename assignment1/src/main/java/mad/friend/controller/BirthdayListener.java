@@ -49,6 +49,7 @@ public class BirthdayListener implements View.OnClickListener, DatePickerDialog.
 
     /**
      *  Sets the birthday text field to the selected one from the Date Picker dialog
+     *  Sets friends current birthday to the selected one
      */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

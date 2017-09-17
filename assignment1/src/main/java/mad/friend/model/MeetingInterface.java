@@ -12,13 +12,18 @@ public interface MeetingInterface {
     public String getId();
     public String getTitle();
     public void setTitle(String title);
+
+    public Date getDate();
+    public void setDate(Date date);
     public Date getStartTime();
     public void setStartTime(Date startTime); //will need to add mmddyy hhmmss
     public Date getEndTime();
     public void setEndTime(Date endTime); //will need to add mmddyy hhmmss
+
     public List<Friend> getInvited();
     public void addFriend(Friend friend);
     public void removeFriend(Friend friend);
+
     public Location getLocation();
     public void setLocation(Location location);
     public double getLatitude();
