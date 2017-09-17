@@ -2,6 +2,7 @@ package mad.friend.model;
 
 import android.location.Location;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +16,10 @@ public interface MeetingInterface {
 
     public Date getDate();
     public void setDate(Date date);
-    public Date getStartTime();
-    public void setStartTime(Date startTime); //will need to add mmddyy hhmmss
-    public Date getEndTime();
-    public void setEndTime(Date endTime); //will need to add mmddyy hhmmss
+    public Time getStartTime();
+    public void setStartTime(Time startTime); //will need to add mmddyy hhmmss
+    public Time getEndTime();
+    public void setEndTime(Time endTime); //will need to add mmddyy hhmmss
 
     public List<Friend> getInvited();
     public void addFriend(Friend friend);

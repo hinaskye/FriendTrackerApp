@@ -2,6 +2,7 @@ package mad.friend.model;
 
 import android.location.Location;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -12,8 +13,8 @@ public class Meeting implements MeetingInterface {
     private String id;
     private String title;
     private Date date;
-    private Date startTime;
-    private Date endTime;
+    private Time startTime;
+    private Time endTime;
     private List<Friend> friendsInvited;
     private Location location;
     private double latitude;
@@ -26,7 +27,7 @@ public class Meeting implements MeetingInterface {
         this.title = title;
     }
 
-    public Meeting(String id, String title, Date startTime, Date endTime,
+    public Meeting(String id, String title, Time startTime, Time endTime,
                    List<Friend> invited, Location location)
     {
         this.id = id;
@@ -37,7 +38,7 @@ public class Meeting implements MeetingInterface {
         this.location = location;
     }
 
-    public Meeting(String id, String title, Date startTime, Date endTime,
+    public Meeting(String id, String title, Time startTime, Time endTime,
                    List<Friend> invited, double latitude, double longitude)
     {
         this.id = id;
@@ -77,22 +78,22 @@ public class Meeting implements MeetingInterface {
     }
 
     @Override
-    public Date getStartTime() {
+    public Time getStartTime() {
         return startTime;
     }
 
     @Override
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
     @Override
-    public Date getEndTime() {
-        return null;
+    public Time getEndTime() {
+        return endTime;
     }
 
     @Override
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
 

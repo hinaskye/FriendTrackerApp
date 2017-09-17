@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/meeting_date_hint"
-        android:focusable="false"/>
+        android:focusable="false" />
 
     <!-- Time Headings -->
     <LinearLayout
@@ -56,7 +56,8 @@
                 android:id="@+id/meeting_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/meeting_start_time_hint" />
+                android:hint="@string/meeting_start_time_hint"
+                android:focusable="false" />
 
         </LinearLayout>
 
@@ -76,7 +77,8 @@
                 android:id="@+id/meeting_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/meeting_end_time_hint" />
+                android:hint="@string/meeting_end_time_hint"
+                android:focusable="false" />
         </LinearLayout>
 
     </LinearLayout>

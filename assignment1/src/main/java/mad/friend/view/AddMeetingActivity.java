@@ -9,6 +9,7 @@ import android.widget.TextView;
 import hinaskye.assignment1.R;
 import mad.friend.controller.AddMeetingListener;
 import mad.friend.controller.MeetingDateListener;
+import mad.friend.controller.MeetingTimeListener;
 import mad.friend.model.Meeting;
 
 /**
@@ -19,6 +20,7 @@ public class AddMeetingActivity extends AppCompatActivity
 {
     private String LOG_TAG = this.getClass().getName();
     private Meeting meeting = new Meeting();
+    private int startTime = 0, endTime = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -28,9 +30,21 @@ public class AddMeetingActivity extends AppCompatActivity
 
         setContentView(R.layout.add_meeting);
 
-        //listeners
+        // listeners
+        // Date Listener
         TextView meetingDate = (EditText) findViewById(R.id.meeting_edit_date);
-
         meetingDate.setOnClickListener(new MeetingDateListener(this, meetingDate, meeting));
+
+        // Time Listener
+        TextView meetingStartTime = (EditText) findViewById(R.id.meeting_start_time);
+        meetingStartTime.setOnClickListener(
+                new MeetingTimeListener(this, meetingStartTime, meeting, startTime));
+
+        TextView meetingEndTime = (EditText) findViewById(R.id.meeting_end_time);
+        meetingEndTime.setOnClickListener(
+                new MeetingTimeListener(this, meetingEndTime, meeting, endTime));
+
+
+
     }
 }
