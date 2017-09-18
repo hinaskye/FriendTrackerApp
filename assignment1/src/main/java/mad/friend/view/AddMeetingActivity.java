@@ -50,7 +50,7 @@ public class AddMeetingActivity extends AppCompatActivity
         // friend list view for each friend added
         meeting_friend_list = (ListView) findViewById(R.id.meeting_friends_invited);
         adapter = new MeetingFriendListAdapter(this, R.layout.meeting_friend_list_content,
-                meeting_friends);
+                meeting.getInvited());
         meeting_friend_list.setAdapter(adapter);
 
         setListViewHeightBasedOnChildren(meeting_friend_list);
@@ -72,6 +72,8 @@ public class AddMeetingActivity extends AppCompatActivity
         // Add Friend Listener
         Button addFriend = (Button) findViewById(R.id.meeting_add_friend_button);
         addFriend.setOnClickListener(new MeetingAddFriendListener(this));
+
+        // Complete Add Meeting Listener
     }
 
     @Override
@@ -82,6 +84,10 @@ public class AddMeetingActivity extends AppCompatActivity
         // refresh view based on List<Friend> meeting_friends to be added to meeting model
         meeting_friend_list.setAdapter(adapter);
         setListViewHeightBasedOnChildren(meeting_friend_list); // fixes listview within scrollview
+
+        // debugging
+        System.err.println(meeting.toString());
+        meeting.printMeetingFriends();
     }
 
     @Override
@@ -91,7 +97,7 @@ public class AddMeetingActivity extends AppCompatActivity
             if(resultCode == RESULT_OK){
                 Friend newMeetingFriend = (Friend) data.getSerializableExtra("friend");
                 if(newMeetingFriend!=null)
-                    meeting_friends.add(newMeetingFriend);
+                    meeting.addFriend(newMeetingFriend);
             }
         }
     }//onActivityResult

@@ -3,6 +3,7 @@ package mad.friend.model;
 import android.location.Location;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Meeting implements MeetingInterface {
     private Date date;
     private Time startTime;
     private Time endTime;
-    private List<Friend> friendsInvited;
+    private List<Friend> friendsInvited = new ArrayList<>();
     private Location location;
     private double latitude;
     private double longitude;
@@ -144,5 +145,30 @@ public class Meeting implements MeetingInterface {
     public void setLongitude(double longitude)
     {
         this.longitude = longitude;
+    }
+
+    /**
+     * @return String containing meeting info minus friends of the meeting.
+     */
+    public String toString()
+    {
+        if(startTime!=null && endTime!=null && date!=null)
+        {
+            return String.format("id: %s\ntitle: %s\ndate: %d\nstart time: %d\n" +
+                            "end time: %d\nlatitude: %f\n longitude: %f", id, title, date.getTime(),
+                    startTime.getTime(), endTime.getTime(), latitude, longitude);
+        }
+        return "false";
+    }
+
+    /**
+     * Debugging will print all friends added to this meeting
+     */
+    public void printMeetingFriends()
+    {
+        for(Friend friend : friendsInvited)
+        {
+            System.out.println(friend.toString());
+        }
     }
 }

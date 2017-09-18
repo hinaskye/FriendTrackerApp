@@ -50,7 +50,6 @@ public class MeetingFriendListAdapter extends ArrayAdapter<Meeting> {
 
             if(name != null)
             {
-                System.err.println(currentFriend.getName());
                 name.setText(currentFriend.getName());
             }
         }
