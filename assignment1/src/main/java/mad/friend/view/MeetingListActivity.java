@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hinaskye.assignment1.R;
-import mad.friend.controller.AddMeetingListener;
-import mad.friend.controller.DisplayFriendListListener;
-import mad.friend.controller.MeetingListAdapter;
+import mad.friend.controller.meeting.AddMeetingListener;
+import mad.friend.controller.friend.DisplayFriendListListener;
+import mad.friend.controller.meeting.MeetingListAdapter;
 import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
 

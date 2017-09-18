@@ -17,14 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hinaskye.assignment1.R;
-import mad.friend.controller.AddMeetingListener;
-import mad.friend.controller.MeetingAddFriendListener;
-import mad.friend.controller.MeetingDateListener;
-import mad.friend.controller.MeetingFriendListAdapter;
-import mad.friend.controller.MeetingTimeListener;
+import mad.friend.controller.meeting.MeetingAddFriendListener;
+import mad.friend.controller.meeting.MeetingDateListener;
+import mad.friend.controller.meeting.MeetingFriendListAdapter;
+import mad.friend.controller.meeting.MeetingTimeListener;
 import mad.friend.model.Friend;
 import mad.friend.model.Meeting;
-import mad.friend.model.MeetingModel;
 import util.FriendTrackerUtil;
 
 /**

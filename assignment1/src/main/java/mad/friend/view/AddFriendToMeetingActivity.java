@@ -7,8 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import hinaskye.assignment1.R;
-import mad.friend.controller.AddFriendToMeetingListener;
-import mad.friend.controller.FriendListAdapter;
+import mad.friend.controller.meeting.AddFriendToMeetingListener;
+import mad.friend.controller.friend.FriendListAdapter;
 import mad.friend.model.FriendModel;
 
 /**
@@ -37,6 +37,7 @@ public class AddFriendToMeetingActivity extends AppCompatActivity
         friendListView = (ListView) findViewById(R.id.friend_list_view);
         friendListView.setAdapter(adapter);
 
+        // Set onclick listener for each friend
         friendListView.setOnItemClickListener(new AddFriendToMeetingListener(this));
     }
 

@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -12,6 +12,10 @@ import java.util.Date;
 
 import mad.friend.model.Meeting;
 
+/**
+ * Meeting Date Listener
+ * Activate a DatePicker Dialog to set the meeting date
+ */
 public class MeetingDateListener implements View.OnClickListener, DatePickerDialog.OnDateSetListener
 {
     Activity current;

@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,6 +27,9 @@ public class AddMeetingListener implements View.OnClickListener, MenuItem.OnMenu
         current.startActivity(addMeetingIntent);
     }
 
+    /**
+     * Also apply listener to menu item
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Intent addMeetingIntent = new Intent(current, AddMeetingActivity.class);

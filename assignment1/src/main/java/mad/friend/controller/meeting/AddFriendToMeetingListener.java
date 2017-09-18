@@ -1,19 +1,16 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.test.ActivityTestCase;
 import android.view.View;
 import android.widget.AdapterView;
 
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
-import mad.friend.view.AddFriendToMeetingActivity;
 
 /**
- * Created by Hinaskye on 18/09/2017.
+ * When a friend is selected, this will return the friend object and finish the current activity
  */
-
 public class AddFriendToMeetingListener implements AdapterView.OnItemClickListener {
 
     Activity current;

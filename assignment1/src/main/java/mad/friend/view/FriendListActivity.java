@@ -7,19 +7,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hinaskye.assignment1.R;
-import mad.friend.controller.AddContactListener;
-import mad.friend.controller.DisplayMeetingListListener;
-import mad.friend.controller.EditFriendListener;
-import mad.friend.controller.FriendListAdapter;
+import mad.friend.controller.friend.AddContactListener;
+import mad.friend.controller.meeting.DisplayMeetingListListener;
+import mad.friend.controller.friend.EditFriendListener;
+import mad.friend.controller.friend.FriendListAdapter;
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 import mad.friend.model.contact.ContactDataManager;

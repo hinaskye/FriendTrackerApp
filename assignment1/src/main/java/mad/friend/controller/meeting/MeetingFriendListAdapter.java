@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -13,24 +13,20 @@ import java.util.List;
 
 import hinaskye.assignment1.R;
 import mad.friend.model.Friend;
-import mad.friend.model.FriendModel;
+import mad.friend.model.Meeting;
 
 /**
- * Displays the content of the friend listview based on our friend model class
+ * Displays the content of the meeting listview based on our meeting model class
  */
-public class FriendListAdapter extends ArrayAdapter<Friend>
-{
+public class MeetingFriendListAdapter extends ArrayAdapter<Meeting> {
+
     private List<Friend> friends;
 
-    public FriendListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
+    public MeetingFriendListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
         friends = objects;
     }
 
-    /**
-     * Code from https://devtut.wordpress.com/2011/06/09/custom-arrayadapter-for-a-listview-android/
-     * modified to use with Friend Tracker app
-     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
@@ -41,7 +37,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend>
         {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            newView = inflater.inflate(R.layout.friend_list_content, null);
+            newView = inflater.inflate(R.layout.meeting_friend_list_content, null);
         }
 
         Friend currentFriend = friends.get(position);
@@ -49,17 +45,13 @@ public class FriendListAdapter extends ArrayAdapter<Friend>
         // Set view of current friend object
         if(currentFriend != null)
         {
-            TextView name = (TextView) newView.findViewById(R.id.friend_name);
-            TextView location = (TextView) newView.findViewById(R.id.friend_location);
+            // More information to be added
+            TextView name = (TextView) newView.findViewById(R.id.meeting_friend_name);
 
             if(name != null)
             {
+                System.err.println(currentFriend.getName());
                 name.setText(currentFriend.getName());
-            }
-            if(location != null)
-            {
-                location.setText((String)FriendModel.getInstance()
-                        .getFriendLocation().get(currentFriend.getId()));
             }
         }
 

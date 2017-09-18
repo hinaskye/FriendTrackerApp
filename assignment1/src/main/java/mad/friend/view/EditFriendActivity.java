@@ -4,16 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 
 import hinaskye.assignment1.R;
-import mad.friend.controller.BirthdayListener;
-import mad.friend.controller.DeleteFriendListener;
+import mad.friend.controller.friend.BirthdayListener;
+import mad.friend.controller.friend.DeleteFriendListener;
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 

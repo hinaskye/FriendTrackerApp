@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.app.Activity;
 import android.content.Intent;

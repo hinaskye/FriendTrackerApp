@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,9 +8,10 @@ import mad.friend.view.AddFriendToMeetingActivity;
 import util.FriendTrackerUtil;
 
 /**
- * Created by Hinaskye on 18/09/2017.
+ * Meeting, add friend listener
+ * When button clicked will start an add friend to meeting intent and start activty for result
+ * expects a friend object back
  */
-
 public class MeetingAddFriendListener implements View.OnClickListener {
 
     Activity current;

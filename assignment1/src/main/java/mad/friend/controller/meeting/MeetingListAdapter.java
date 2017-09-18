@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -12,19 +12,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import hinaskye.assignment1.R;
-import mad.friend.model.Friend;
 import mad.friend.model.Meeting;
 
 /**
  * Displays the content of the meeting listview based on our meeting model class
  */
-public class MeetingFriendListAdapter extends ArrayAdapter<Meeting> {
+public class MeetingListAdapter extends ArrayAdapter<Meeting> {
 
-    private List<Friend> friends;
+    private List<Meeting> meetings;
 
-    public MeetingFriendListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
+    public MeetingListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
-        friends = objects;
+        meetings = objects;
     }
 
     @Override
@@ -37,22 +36,27 @@ public class MeetingFriendListAdapter extends ArrayAdapter<Meeting> {
         {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            newView = inflater.inflate(R.layout.meeting_friend_list_content, null);
+            newView = inflater.inflate(R.layout.meeting_list_content, null);
         }
 
-        Friend currentFriend = friends.get(position);
+        Meeting currentMeeting = meetings.get(position);
 
         // Set view of current friend object
-        if(currentFriend != null)
+        if(currentMeeting != null)
         {
             // More information to be added
-            TextView name = (TextView) newView.findViewById(R.id.meeting_friend_name);
+            TextView title = (TextView) newView.findViewById(R.id.meeting_title_text);
+            TextView startTime = (TextView) newView.findViewById(R.id.meeting_start_time_text);
 
-            if(name != null)
+            if(title != null)
             {
-                System.err.println(currentFriend.getName());
-                name.setText(currentFriend.getName());
+                title.setText(currentMeeting.getTitle());
             }
+            /*
+            if(startTime != null)
+            {
+                startTime.setText(currentMeeting.getStartTime());
+            }*/
         }
 
         return newView;

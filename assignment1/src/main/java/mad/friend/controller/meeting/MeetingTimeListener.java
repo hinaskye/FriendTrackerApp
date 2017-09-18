@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.meeting;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
@@ -9,10 +9,15 @@ import android.widget.Toast;
 
 import java.sql.Time;
 import java.util.Calendar;
-import java.util.Date;
 
 import mad.friend.model.Meeting;
 
+/**
+ * Meeting time listener
+ * Used for both the start and end time selection for the meeting
+ * Opens a TimePicker Dialog and sets meeting time to the selected
+ * Handles validation to make sure start time is before end time
+ */
 public class MeetingTimeListener implements View.OnClickListener, TimePickerDialog.OnTimeSetListener
 {
     Activity current;
