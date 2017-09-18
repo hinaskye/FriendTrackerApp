@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.sql.Time;
 import java.util.Calendar;
@@ -48,13 +49,34 @@ public class MeetingTimeListener implements View.OnClickListener, TimePickerDial
         editText.setText(hourOfDay + ":" + minute);
         Time timeSet = new Time(hourOfDay, minute, 0);
 
+        // check if user clicked start time or end time
         if(desiredTime == startTime)
         {
-            meeting.setStartTime(timeSet);
+            // check if start time is before end time, set if end time is null
+            if(meeting.getEndTime() == null ||
+                    (meeting.getEndTime()!=null) && (timeSet.getTime() < meeting.getEndTime().getTime()))
+            {
+                meeting.setStartTime(timeSet);
+            }
+            else
+            {   // display error toast and change text if not before
+                Toast.makeText(current, "Start Time must be before End Time!",Toast.LENGTH_SHORT).show();
+                editText.setText("");
+            }
         }
         else if(desiredTime == endTime)
         {
-            meeting.setEndTime(timeSet);
+            // check if end time is after start time, set if start time is null
+            if(meeting.getStartTime() == null ||
+                    (meeting.getStartTime()!=null) && (timeSet.getTime() > meeting.getStartTime().getTime()))
+            {
+                meeting.setEndTime(timeSet);
+            }
+            else
+            {
+                Toast.makeText(current, "End Time must be before Start Time!",Toast.LENGTH_SHORT).show();
+                editText.setText("");
+            }
         }
     }
 }
