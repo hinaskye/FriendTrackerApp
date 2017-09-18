@@ -39,7 +39,7 @@
             android:hint="@string/meeting_date_hint"
             android:focusable="false" />
 
-        <!-- Time Headings -->
+        <!-- Time Layout -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,15 +85,22 @@
                     android:hint="@string/meeting_end_time_hint"
                     android:focusable="false" />
             </LinearLayout>
-
         </LinearLayout>
 
+        <!-- friends -->
         <TextView
             android:id="@+id/meeting_friend_list_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/meeting_friend_list_text"
             android:textStyle="bold" />
+
+        <!-- Invited friends -->
+        <ListView
+            android:id="@+id/meeting_friends_invited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
 
         <Button
             android:id="@+id/meeting_add_friend_button"
@@ -129,7 +136,7 @@
                 android:inputType="numberDecimal|numberSigned" />
         </LinearLayout>
 
-        <!-- Buttons -->
+        <!-- Add Button -->
         <Button
             android:id="@+id/add_meeting_button"
             android:layout_width="wrap_content"

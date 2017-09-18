@@ -1,16 +1,31 @@
 package mad.friend.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import hinaskye.assignment1.R;
 import mad.friend.controller.AddMeetingListener;
+import mad.friend.controller.MeetingAddFriendListener;
 import mad.friend.controller.MeetingDateListener;
+import mad.friend.controller.MeetingFriendListAdapter;
 import mad.friend.controller.MeetingTimeListener;
+import mad.friend.model.Friend;
 import mad.friend.model.Meeting;
+import mad.friend.model.MeetingModel;
+import util.FriendTrackerUtil;
 
 /**
  * Add Meeting Activity
@@ -20,7 +35,11 @@ public class AddMeetingActivity extends AppCompatActivity
 {
     private String LOG_TAG = this.getClass().getName();
     private Meeting meeting = new Meeting();
+    private List<Friend> meeting_friends = new ArrayList<>();
     private int startTime = 0, endTime = 1;
+
+    ArrayAdapter adapter;
+    ListView meeting_friend_list;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -29,6 +48,14 @@ public class AddMeetingActivity extends AppCompatActivity
         Log.i(LOG_TAG, "onCreate()");
 
         setContentView(R.layout.add_meeting);
+
+        // friend list view for each friend added
+        meeting_friend_list = (ListView) findViewById(R.id.meeting_friends_invited);
+        adapter = new MeetingFriendListAdapter(this, R.layout.meeting_friend_list_content,
+                meeting_friends);
+        meeting_friend_list.setAdapter(adapter);
+
+        setListViewHeightBasedOnChildren(meeting_friend_list);
 
         // listeners
         // Date Listener
@@ -44,7 +71,55 @@ public class AddMeetingActivity extends AppCompatActivity
         meetingEndTime.setOnClickListener(
                 new MeetingTimeListener(this, meetingEndTime, meeting, endTime));
 
+        // Add Friend Listener
+        Button addFriend = (Button) findViewById(R.id.meeting_add_friend_button);
+        addFriend.setOnClickListener(new MeetingAddFriendListener(this));
+    }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        Log.i(LOG_TAG, "onResume()");
+        // refresh view based on List<Friend> meeting_friends to be added to meeting model
+        meeting_friend_list.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(meeting_friend_list); // fixes listview within scrollview
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == FriendTrackerUtil.MEETING_ADD_FRIEND) {
+            if(resultCode == RESULT_OK){
+                Friend newMeetingFriend = (Friend) data.getSerializableExtra("friend");
+                if(newMeetingFriend!=null)
+                    meeting_friends.add(newMeetingFriend);
+            }
+        }
+    }//onActivityResult
+
+    // Code taken from https://stackoverflow.com/questions/18367522/android-list-view-inside-a-scroll-view
+    /**** Method for Setting the Height of the ListView dynamically.
+     **** Hack to fix the issue of not showing all the items of the ListView
+     **** when placed inside a ScrollView  ****/
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }

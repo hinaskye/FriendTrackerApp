@@ -31,6 +31,7 @@
     <string name="meeting_end_time_hint">End time</string>
 
     <string name="meeting_friend_list_text">Friends</string>
+    <string name="add_friend_to_meeting_title">Invite friend</string>
 
     <string name="meeting_location_text">Location</string>
     <string name="meeting_location_hint">Location</string>

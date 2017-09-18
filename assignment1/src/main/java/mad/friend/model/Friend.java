@@ -1,11 +1,12 @@
 package mad.friend.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Friend class
  */
-public class Friend implements FriendInterface {
+public class Friend implements FriendInterface, Serializable {
 
     private String id;
     private String name;

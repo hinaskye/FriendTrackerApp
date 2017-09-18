@@ -12,6 +12,7 @@ public class FriendTrackerUtil {
 
     //Result code
     public static final int EDIT_FRIEND = 1;
+    public static final int MEETING_ADD_FRIEND = 2;
 
     /**
      * Constructor
