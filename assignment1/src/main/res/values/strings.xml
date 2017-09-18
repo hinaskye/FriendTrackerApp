@@ -19,7 +19,7 @@
 
     <!--Meeting-->
     <string name="meeting_title">Meeting</string>
-    <string name="add_meeting_title">Adding Meeting..</string>
+    <string name="add_meeting_title">New Meeting</string>
     <string name="meeting_title_text">Meeting Title</string>
     <string name="meeting_title_hint">Title</string>
 
