@@ -1,129 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/meeting_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/meeting_title_text"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/edit_meeting_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/meeting_title_hint" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/meeting_date_text"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/meeting_edit_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/meeting_date_hint"
-        android:focusable="false" />
-
-    <!-- Time Headings -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/meeting_start_time_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/meeting_start_time_text"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/meeting_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/meeting_start_time_hint"
-                android:focusable="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/meeting_end_time_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/meeting_end_time_text"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/meeting_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/meeting_end_time_hint"
-                android:focusable="false" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/meeting_friend_list_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/meeting_friend_list_text"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/meeting_location_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/meeting_location_text"
-        android:textStyle="bold" />
-
-    <!-- Location -->
+    android:layout_width="match_parent" >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/meeting_latitude"
+        <TextView
+            android:id="@+id/meeting_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/meeting_latitude_hint"
-            android:inputType="numberDecimal|numberSigned" />
+            android:text="@string/meeting_title_text"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/meeting_longitude"
+            android:id="@+id/edit_meeting_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/meeting_longitude_hint"
-            android:inputType="numberDecimal|numberSigned" />
+            android:hint="@string/meeting_title_hint" />
+
+        <TextView
+            android:id="@+id/meeting_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meeting_date_text"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/meeting_edit_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/meeting_date_hint"
+            android:focusable="false" />
+
+        <!-- Time Headings -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/meeting_start_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/meeting_start_time_text"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/meeting_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/meeting_start_time_hint"
+                    android:focusable="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/meeting_end_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/meeting_end_time_text"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/meeting_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/meeting_end_time_hint"
+                    android:focusable="false" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/meeting_friend_list_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meeting_friend_list_text"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/meeting_add_friend_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_contact_text"/>
+
+        <TextView
+            android:id="@+id/meeting_location_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meeting_location_text"
+            android:textStyle="bold" />
+
+        <!-- Location -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/meeting_latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/meeting_latitude_hint"
+                android:inputType="numberDecimal|numberSigned" />
+
+            <EditText
+                android:id="@+id/meeting_longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/meeting_longitude_hint"
+                android:inputType="numberDecimal|numberSigned" />
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <Button
+            android:id="@+id/add_meeting_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_meeting_button_text"
+            android:layout_gravity="right" />
+
     </LinearLayout>
-
-    <!-- Buttons -->
-    <Button
-        android:id="@+id/add_meeting_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_meeting_button_text"
-        android:layout_gravity="right" />
-
-</LinearLayout>
+</ScrollView>

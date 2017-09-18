@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +134,10 @@ public class FriendListActivity extends AppCompatActivity
 
                          // Add new friend to the model
                          FriendModel.getInstance().addFriend(newFriend);
+                     }
+                     else
+                     {
+                         Toast.makeText(this, "Friend already added", Toast.LENGTH_SHORT).show();
                      }
 
                      // Debugging
