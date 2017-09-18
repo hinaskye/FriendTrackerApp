@@ -107,33 +107,23 @@
             android:id="@+id/meeting_latitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/meeting_latitude_hint" />
+            android:hint="@string/meeting_latitude_hint"
+            android:inputType="numberDecimal|numberSigned" />
 
         <EditText
             android:id="@+id/meeting_longitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/meeting_longitude_hint" />
+            android:hint="@string/meeting_longitude_hint"
+            android:inputType="numberDecimal|numberSigned" />
     </LinearLayout>
 
     <!-- Buttons -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/add_meeting_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right" >
-
-        <Button
-            android:id="@+id/remove_meeting_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/remove_meeting_text" />
-
-        <Button
-            android:id="@+id/add_meeting_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_meeting_button_text" />
-    </LinearLayout>
+        android:text="@string/add_meeting_button_text"
+        android:layout_gravity="right" />
 
 </LinearLayout>
