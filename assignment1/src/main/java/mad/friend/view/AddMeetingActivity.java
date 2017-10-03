@@ -17,12 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hinaskye.assignment1.R;
+import mad.friend.controller.meeting.CompleteAddMeetingListener;
 import mad.friend.controller.meeting.MeetingAddFriendListener;
 import mad.friend.controller.meeting.MeetingDateListener;
 import mad.friend.controller.meeting.MeetingFriendListAdapter;
+import mad.friend.controller.meeting.MeetingLocationListener;
 import mad.friend.controller.meeting.MeetingTimeListener;
+import mad.friend.controller.meeting.MeetingTitleListener;
 import mad.friend.model.Friend;
 import mad.friend.model.Meeting;
+import mad.friend.model.MeetingModel;
 import util.FriendTrackerUtil;
 
 /**
@@ -35,6 +39,7 @@ public class AddMeetingActivity extends AppCompatActivity
     private Meeting meeting = new Meeting();
     private List<Friend> meeting_friends = new ArrayList<>();
     private int startTime = 0, endTime = 1;
+    private int latitude = 0, longitude = 1;
 
     ArrayAdapter adapter;
     ListView meeting_friend_list;
@@ -56,6 +61,10 @@ public class AddMeetingActivity extends AppCompatActivity
         setListViewHeightBasedOnChildren(meeting_friend_list);
 
         // listeners
+        // Title Listener
+        TextView meetingTitle = (EditText) findViewById(R.id.edit_meeting_title);
+        meetingTitle.addTextChangedListener(new MeetingTitleListener(this, meeting));
+
         // Date Listener
         TextView meetingDate = (EditText) findViewById(R.id.meeting_edit_date);
         meetingDate.setOnClickListener(new MeetingDateListener(this, meetingDate, meeting));
@@ -73,7 +82,18 @@ public class AddMeetingActivity extends AppCompatActivity
         Button addFriend = (Button) findViewById(R.id.meeting_add_friend_button);
         addFriend.setOnClickListener(new MeetingAddFriendListener(this));
 
+        // Location Listener
+        // Latitude
+        TextView meetingLatitude = (EditText) findViewById((R.id.meeting_latitude));
+        meetingLatitude.addTextChangedListener(new MeetingLocationListener(this, meeting, latitude));
+
+        // Longitude
+        TextView meetingLongitude = (EditText) findViewById(R.id.meeting_longitude);
+        meetingLongitude.addTextChangedListener(new MeetingLocationListener(this, meeting, longitude));
+
         // Complete Add Meeting Listener
+        Button addMeeting = (Button) findViewById(R.id.add_meeting_button);
+        addMeeting.setOnClickListener(new CompleteAddMeetingListener(this, meeting));
     }
 
     @Override

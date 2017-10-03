@@ -21,6 +21,7 @@ public class Meeting implements MeetingInterface {
     private double latitude;
     private double longitude;
 
+    // Upon init need to specify a unique id
     public Meeting() {}
 
     public Meeting(String title)

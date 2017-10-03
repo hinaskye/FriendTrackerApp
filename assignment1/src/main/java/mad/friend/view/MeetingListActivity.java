@@ -2,6 +2,7 @@ package mad.friend.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,5 +82,17 @@ public class MeetingListActivity extends AppCompatActivity
         displayFriendListMenuItem.setOnMenuItemClickListener(new DisplayFriendListListener(this));
 
         return true;
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        meetingListView.setAdapter(meeting_list_adapter);
+        Log.i(LOG_TAG, "onResume()");
+        for(Meeting m : MeetingModel.getInstance().getMeetings())
+        {
+            Log.d(LOG_TAG, m.toString());
+        }
     }
 }

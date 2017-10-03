@@ -26,6 +26,12 @@ public class MeetingTimeListener implements View.OnClickListener, TimePickerDial
     int desiredTime;
     int startTime = 0, endTime = 1;
 
+    /**
+     * @param caller Parent activity
+     * @param editText EditText which asks for time
+     * @param meeting Meeting object to modify
+     * @param desiredTime specify if setting meeting start time (0) or end time (1)
+     */
     public MeetingTimeListener(Activity caller, TextView editText, Meeting meeting, int desiredTime)
     {
         current = caller;
