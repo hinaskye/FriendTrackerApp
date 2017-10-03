@@ -97,6 +97,13 @@ public class AddMeetingActivity extends AppCompatActivity
     }
 
     @Override
+    public void onStart()
+    {
+        super.onStart();
+        Log.i(LOG_TAG, "onStart()");
+    }
+
+    @Override
     public void onResume()
     {
         super.onResume();
@@ -104,10 +111,6 @@ public class AddMeetingActivity extends AppCompatActivity
         // refresh view based on List<Friend> meeting_friends to be added to meeting model
         meeting_friend_list.setAdapter(adapter);
         setListViewHeightBasedOnChildren(meeting_friend_list); // fixes listview within scrollview
-
-        // debugging
-        System.err.println(meeting.toString());
-        meeting.printMeetingFriends();
     }
 
     @Override
@@ -145,5 +148,19 @@ public class AddMeetingActivity extends AppCompatActivity
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Log.i(LOG_TAG, "onPause()");
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        Log.i(LOG_TAG, "onStop()");
     }
 }

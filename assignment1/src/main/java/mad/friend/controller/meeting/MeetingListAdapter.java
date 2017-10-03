@@ -52,11 +52,11 @@ public class MeetingListAdapter extends ArrayAdapter<Meeting> {
             {
                 title.setText(currentMeeting.getTitle());
             }
-            /*
+
             if(startTime != null)
             {
-                startTime.setText(currentMeeting.getStartTime());
-            }*/
+                startTime.setText(currentMeeting.getStartTime().toString());
+            }
         }
 
         return newView;

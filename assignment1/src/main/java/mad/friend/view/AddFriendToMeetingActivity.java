@@ -57,4 +57,18 @@ public class AddFriendToMeetingActivity extends AppCompatActivity
         // Repaints the contents of the friendListView based on our friend model
         friendListView.setAdapter(adapter);
     }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Log.i(LOG_TAG, "onPause()");
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        Log.i(LOG_TAG, "onStop()");
+    }
 }//class

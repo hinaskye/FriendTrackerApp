@@ -144,4 +144,18 @@ public class FriendListActivity extends AppCompatActivity
              }//if
          }//if
      }//onActivityResult
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Log.i(LOG_TAG, "onPause()");
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        Log.i(LOG_TAG, "onStop()");
+    }
 }//class

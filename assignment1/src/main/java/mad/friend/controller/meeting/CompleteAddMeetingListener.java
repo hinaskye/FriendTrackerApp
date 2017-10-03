@@ -31,7 +31,7 @@ public class CompleteAddMeetingListener implements View.OnClickListener {
         }
         else
         {
-            System.err.println("Unable to add meeting, meeting is null");
+            System.err.println("CompleteAddMeetingListener: Unable to add meeting, meeting is null");
         }
     }
 }

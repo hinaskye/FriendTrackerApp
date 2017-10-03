@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import hinaskye.assignment1.R;
@@ -41,11 +43,18 @@ public class MeetingListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.meeting_list);
 
+        // Hard coded date time
+        Calendar c = Calendar.getInstance();
+        c.set(2017, 9, 9, 12, 30);
+        long dummyStartTime = c.getTimeInMillis();
+        c.set(2017, 9, 9, 13, 30);
+        long dummyEndTime = c.getTimeInMillis();
+
         // Hard coded meetings to test layout
-        Meeting m1 = new Meeting("meeting 1");
-        Meeting m2 = new Meeting("meeting 2");
-        Meeting m3 = new Meeting("meeting 3");
-        Meeting m4 = new Meeting("meeting 4");
+        Meeting m1 = new Meeting("meeting 1", new Time(dummyStartTime), new Time(dummyEndTime));
+        Meeting m2 = new Meeting("meeting 2", new Time(dummyStartTime), new Time(dummyEndTime));
+        Meeting m3 = new Meeting("meeting 3", new Time(dummyEndTime), new Time(dummyEndTime+1000));
+        Meeting m4 = new Meeting("meeting 4", new Time(dummyEndTime), new Time(dummyEndTime+1000));
 
         // add hard coded meetings to our meeting model
         MeetingModel.getInstance().getMeetings().add(m1);
@@ -85,6 +94,13 @@ public class MeetingListActivity extends AppCompatActivity
     }
 
     @Override
+    public void onStart()
+    {
+        super.onStart();
+        Log.i(LOG_TAG, "onStart()");
+    }
+
+    @Override
     public void onResume()
     {
         super.onResume();
@@ -94,5 +110,19 @@ public class MeetingListActivity extends AppCompatActivity
         {
             Log.d(LOG_TAG, m.toString());
         }
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Log.i(LOG_TAG, "onPause()");
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        Log.i(LOG_TAG, "onStop()");
     }
 }

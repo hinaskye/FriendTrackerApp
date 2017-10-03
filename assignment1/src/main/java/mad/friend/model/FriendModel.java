@@ -58,7 +58,7 @@ public class FriendModel {
         }
         else
         {
-            System.err.printf("Friend %s already in list", friend.toString());
+            System.err.printf("FriendModel: Friend %s already in list", friend.toString());
             return false;
         }
     }

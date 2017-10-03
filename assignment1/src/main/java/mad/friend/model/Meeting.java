@@ -29,6 +29,13 @@ public class Meeting implements MeetingInterface {
         this.title = title;
     }
 
+    public Meeting(String title, Time startTime, Time endTime)
+    {
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public Meeting(String id, String title, Time startTime, Time endTime,
                    List<Friend> invited, Location location)
     {
@@ -169,7 +176,7 @@ public class Meeting implements MeetingInterface {
     {
         for(Friend friend : friendsInvited)
         {
-            System.out.println(friend.toString());
+            System.out.println("Meeting printMeetingFriends():\n"+friend.toString());
         }
     }
 }

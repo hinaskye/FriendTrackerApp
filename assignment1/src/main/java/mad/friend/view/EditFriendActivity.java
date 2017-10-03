@@ -63,4 +63,25 @@ public class EditFriendActivity extends AppCompatActivity
             removeFriendButton.setOnClickListener(new DeleteFriendListener(this,friendSelected));
         }
     }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Log.i(LOG_TAG, "onStart()");
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        Log.i(LOG_TAG, "onPause()");
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        Log.i(LOG_TAG, "onStop()");
+    }
 }
