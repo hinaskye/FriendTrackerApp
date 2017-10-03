@@ -17,7 +17,6 @@ public class Meeting implements MeetingInterface {
     private Time startTime;
     private Time endTime;
     private List<Friend> friendsInvited = new ArrayList<>();
-    private Location location;
     private double latitude;
     private double longitude;
 
@@ -37,14 +36,13 @@ public class Meeting implements MeetingInterface {
     }
 
     public Meeting(String id, String title, Time startTime, Time endTime,
-                   List<Friend> invited, Location location)
+                   List<Friend> invited)
     {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         friendsInvited = invited;
-        this.location = location;
     }
 
     public Meeting(String id, String title, Time startTime, Time endTime,
@@ -119,16 +117,6 @@ public class Meeting implements MeetingInterface {
     @Override
     public void removeFriend(Friend friend) {
         friendsInvited.remove(friend);
-    }
-
-    @Override
-    public Location getLocation() {
-        return location;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     @Override
