@@ -1,6 +1,8 @@
 package mad.friend.view;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import hinaskye.assignment1.R;
+import mad.friend.controller.NetworkChangeReceiver;
 import mad.friend.controller.friend.AddContactListener;
 import mad.friend.controller.meeting.DisplayMeetingListListener;
 import mad.friend.controller.friend.EditFriendListener;
@@ -67,6 +70,9 @@ public class FriendListActivity extends AppCompatActivity
 
         // Use dummy data
         TestLocationService.test(this);
+
+        IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        this.registerReceiver(new NetworkChangeReceiver(), networkStatus);
     }
 
     @Override

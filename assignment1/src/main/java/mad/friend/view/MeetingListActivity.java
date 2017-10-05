@@ -1,5 +1,7 @@
 package mad.friend.view;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,12 +11,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import hinaskye.assignment1.R;
+import mad.friend.controller.NetworkChangeReceiver;
 import mad.friend.controller.meeting.AddMeetingListener;
 import mad.friend.controller.friend.DisplayFriendListListener;
 import mad.friend.model.database.DBMeetingHelper;
@@ -75,6 +76,9 @@ public class MeetingListActivity extends AppCompatActivity
         // Listener for adding a meeting to friend tracker app
         View fab_add_contact = findViewById(R.id.fab_add_meeting);
         fab_add_contact.setOnClickListener(new AddMeetingListener(this));
+
+        IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        this.registerReceiver(new NetworkChangeReceiver(), networkStatus);
     }
 
     @Override
