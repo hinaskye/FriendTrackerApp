@@ -27,6 +27,14 @@ public class Friend implements FriendInterface, Serializable {
         this.email = email;
     }
 
+    public Friend(String id, String name, String email, Date birthday)
+    {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.birthday = birthday;
+    }
+
     public String getName()
     {
         return name;

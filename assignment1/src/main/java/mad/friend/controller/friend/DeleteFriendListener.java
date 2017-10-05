@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
+import mad.friend.model.database.DBFriendHelper;
 
 /**
  * Delete friend listener
@@ -24,7 +25,10 @@ public class DeleteFriendListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        FriendModel.getInstance().removeFriend(friend.getId());
+        String id = friend.getId();
+        FriendModel.getInstance().removeFriend(id);
+        DBFriendHelper dbFriend = new DBFriendHelper(current);
+        dbFriend.deleteFriend(id);
         Toast.makeText(current, "Deleted Friend", Toast.LENGTH_SHORT).show();
         current.finish();
     }

@@ -1,4 +1,4 @@
-package mad.friend.controller.friend;
+package mad.friend.view.model;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -16,6 +16,7 @@ import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 
 /**
+ * Moved to view.model package as specified
  * Displays the content of the friend listview based on our friend model class
  */
 public class FriendListAdapter extends ArrayAdapter<Friend>

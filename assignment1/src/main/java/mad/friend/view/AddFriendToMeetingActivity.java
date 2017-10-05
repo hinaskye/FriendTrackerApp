@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import hinaskye.assignment1.R;
 import mad.friend.controller.meeting.AddFriendToMeetingListener;
-import mad.friend.controller.friend.FriendListAdapter;
+import mad.friend.view.model.FriendListAdapter;
 import mad.friend.model.FriendModel;
 
 /**

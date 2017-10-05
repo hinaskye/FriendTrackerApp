@@ -51,6 +51,23 @@ public class FriendModel {
      */
     public boolean addFriend(Friend friend)
     {
+        // add friend if new id
+        boolean notInFriendList = true;
+        for(Friend friendInList : friends)
+        {
+            if(friend.getId().equals(friendInList.getId()))
+            {
+                notInFriendList = false;
+            }
+        }
+
+        if(notInFriendList)
+        {
+            friends.add(friend);
+        }
+
+        return notInFriendList;
+        /* // contains does not seem to work when loading friends from database
         if(!friends.contains(friend))
         {
             friends.add(friend);
@@ -60,7 +77,7 @@ public class FriendModel {
         {
             System.err.printf("FriendModel: Friend %s already in list", friend.toString());
             return false;
-        }
+        }*/
     }
 
     /**
@@ -88,6 +105,7 @@ public class FriendModel {
         return friendLocation;
     }
 
+    /* currently redundant */
     public boolean addFriendLocation(String id, String location)
     {
         friendLocation.put(id,location);

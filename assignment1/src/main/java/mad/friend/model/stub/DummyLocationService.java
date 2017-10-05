@@ -80,7 +80,7 @@ public class DummyLocationService
         // Called to add this friend location to our list of locations in friend model
         public void addToFriendModel()
         {
-            FriendModel.getInstance().getFriendLocation().put(id, getLocationString());
+            FriendModel.getInstance().getFriendLocation().put(name, getLocationString());
         }
     }
 

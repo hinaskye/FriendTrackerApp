@@ -17,7 +17,8 @@ import java.util.List;
 import hinaskye.assignment1.R;
 import mad.friend.controller.meeting.AddMeetingListener;
 import mad.friend.controller.friend.DisplayFriendListListener;
-import mad.friend.controller.meeting.MeetingListAdapter;
+import mad.friend.model.database.DBMeetingHelper;
+import mad.friend.view.model.MeetingListAdapter;
 import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
 
@@ -36,6 +37,7 @@ public class MeetingListActivity extends AppCompatActivity
 
     // hard coded to test layout
     private List<String> meeting_list_strings = new ArrayList<String>();
+    private DBMeetingHelper dbMeeting;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -43,6 +45,7 @@ public class MeetingListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.meeting_list);
 
+        /* // Hard coded meetings
         // Hard coded date time
         Calendar c = Calendar.getInstance();
         c.set(2017, 9, 9, 12, 30);
@@ -60,7 +63,7 @@ public class MeetingListActivity extends AppCompatActivity
         MeetingModel.getInstance().getMeetings().add(m1);
         MeetingModel.getInstance().getMeetings().add(m2);
         MeetingModel.getInstance().getMeetings().add(m3);
-        MeetingModel.getInstance().getMeetings().add(m4);
+        MeetingModel.getInstance().getMeetings().add(m4);*/
 
         // Set view based on meeting model
         meeting_list_adapter = new MeetingListAdapter(this, R.layout.meeting_list_content,
@@ -98,6 +101,9 @@ public class MeetingListActivity extends AppCompatActivity
     {
         super.onStart();
         Log.i(LOG_TAG, "onStart()");
+
+        dbMeeting = new DBMeetingHelper(this);
+        dbMeeting.loadMeetings();
     }
 
     @Override
@@ -124,5 +130,6 @@ public class MeetingListActivity extends AppCompatActivity
     {
         super.onStop();
         Log.i(LOG_TAG, "onStop()");
+        dbMeeting.saveMeetings(MeetingModel.getInstance().getMeetings());
     }
 }

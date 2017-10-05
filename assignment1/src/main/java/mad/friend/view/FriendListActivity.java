@@ -15,10 +15,11 @@ import hinaskye.assignment1.R;
 import mad.friend.controller.friend.AddContactListener;
 import mad.friend.controller.meeting.DisplayMeetingListListener;
 import mad.friend.controller.friend.EditFriendListener;
-import mad.friend.controller.friend.FriendListAdapter;
+import mad.friend.view.model.FriendListAdapter;
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 import mad.friend.model.contact.ContactDataManager;
+import mad.friend.model.database.DBFriendHelper;
 import mad.friend.model.stub.TestLocationService;
 import util.FriendTrackerUtil;
 
@@ -38,11 +39,15 @@ public class FriendListActivity extends AppCompatActivity
     private ArrayAdapter adapter;
     private ListView friendListView;
 
+    private DBFriendHelper dbFriend;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.friend_list_view);
+
+        dbFriend = new DBFriendHelper(this);
 
         Log.i(LOG_TAG, "OnCreate()");
 
@@ -86,6 +91,8 @@ public class FriendListActivity extends AppCompatActivity
     {
         super.onStart();
         Log.i(LOG_TAG, "onStart()");
+
+        dbFriend.loadFriends();
     }
 
     @Override
@@ -93,9 +100,8 @@ public class FriendListActivity extends AppCompatActivity
     {
         super.onResume();
         Log.i(LOG_TAG, "onResume()");
-
-        // Repaints the contents of the friendListView based on our friend model
         friendListView.setAdapter(adapter);
+        Log.i(LOG_TAG, FriendModel.getInstance().toString());
     }
 
      @Override
@@ -118,15 +124,15 @@ public class FriendListActivity extends AppCompatActivity
                      // Only add new friend if they are unique, checked by email address
                      if(FriendTrackerUtil.isUniqueEmail(email))
                      {
-                         /* WORKING CODE
                          // Generate random id for new friend
                          String uniqueId = FriendTrackerUtil.uniqueId(ID_LENGTH);
                          // Add new friend to model with email
-                         Friend newFriend = new Friend(uniqueId, name, email);*/
+                         Friend newFriend = new Friend(uniqueId, name, email);
 
                          // For now will use hard coded id to match dummy data id to print location
+                         /*
                          Friend newFriend = new Friend(
-                                 Integer.toString(idForDummyData++), name, email);
+                                 Integer.toString(idForDummyData++), name, email);*/
 
                          // Add new friend to the model
                          FriendModel.getInstance().addFriend(newFriend);
@@ -157,5 +163,7 @@ public class FriendListActivity extends AppCompatActivity
     {
         super.onStop();
         Log.i(LOG_TAG, "onStop()");
+
+        dbFriend.saveFriends(FriendModel.getInstance().getFriends());
     }
 }//class

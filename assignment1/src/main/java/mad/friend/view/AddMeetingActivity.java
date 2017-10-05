@@ -52,6 +52,9 @@ public class AddMeetingActivity extends AppCompatActivity
 
         setContentView(R.layout.add_meeting);
 
+        // set new meeting id to random unique id of length 4
+        meeting.setId(FriendTrackerUtil.uniqueId(4));
+
         // friend list view for each friend added
         meeting_friend_list = (ListView) findViewById(R.id.meeting_friends_invited);
         adapter = new MeetingFriendListAdapter(this, R.layout.meeting_friend_list_content,

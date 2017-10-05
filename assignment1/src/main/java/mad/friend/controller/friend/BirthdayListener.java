@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import mad.friend.model.Friend;
+import mad.friend.model.database.DBFriendHelper;
 
 /**
  * Referenced http://abhiandroid.com/ui/datepicker
@@ -57,6 +58,8 @@ public class BirthdayListener implements View.OnClickListener, DatePickerDialog.
         calendar.set(year, month, dayOfMonth);
         Date newBirthday = calendar.getTime();
         friend.setBirthday(newBirthday);
+        DBFriendHelper dbFriend = new DBFriendHelper(current);
+        dbFriend.updateBirthday(friend);
         editText.setText(new SimpleDateFormat("dd MMMM yyyy").format(newBirthday));
     }
 }

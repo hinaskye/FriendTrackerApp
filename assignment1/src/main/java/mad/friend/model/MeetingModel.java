@@ -26,4 +26,35 @@ public class MeetingModel {
     {
         return meetings;
     }
+
+    public boolean addMeeting(Meeting meeting)
+    {
+        boolean notInList = true;
+        for(Meeting meetingInList : meetings)
+        {
+            if(meetingInList.getId().equals(meeting.getId()))
+            {
+                notInList = false;
+            }
+        }
+
+        if(notInList)
+        {
+            meetings.add(meeting);
+        }
+
+        return notInList;
+
+        /* // May error as with adding friend to model
+        if(!meetings.contains(meeting))
+        {
+            meetings.add(meeting);
+            return true;
+        }
+        else
+        {
+            System.err.printf("Meeting already in list:%s", meeting.toString());
+            return false;
+        }*/
+    }
 }

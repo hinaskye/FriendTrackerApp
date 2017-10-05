@@ -23,9 +23,9 @@ public class Meeting implements MeetingInterface {
     // Upon init need to specify a unique id
     public Meeting() {}
 
-    public Meeting(String title)
+    public Meeting(String id)
     {
-        this.title = title;
+        this.id = id;
     }
 
     public Meeting(String title, Time startTime, Time endTime)
@@ -45,11 +45,12 @@ public class Meeting implements MeetingInterface {
         friendsInvited = invited;
     }
 
-    public Meeting(String id, String title, Time startTime, Time endTime,
+    public Meeting(String id, String title, Date date, Time startTime, Time endTime,
                    List<Friend> invited, double latitude, double longitude)
     {
         this.id = id;
         this.title = title;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         friendsInvited = invited;
@@ -57,9 +58,26 @@ public class Meeting implements MeetingInterface {
         this.longitude = longitude;
     }
 
+    public Meeting(String id, String title, Date date, Time startTime, Time endTime,
+                   double latitude, double longitude)
+    {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     @Override
     public String getId() {
         return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
+import mad.friend.model.database.DBMeetingHelper;
 
 /**
  * Complete Add Meeting Listener
@@ -27,6 +28,8 @@ public class CompleteAddMeetingListener implements View.OnClickListener {
         if(meeting!=null)
         {
             MeetingModel.getInstance().getMeetings().add(meeting);
+            DBMeetingHelper dbMeeting = new DBMeetingHelper(current);
+            dbMeeting.insertMeeting(meeting);
             current.finish();
         }
         else

@@ -1,4 +1,4 @@
-package mad.friend.controller.meeting;
+package mad.friend.view.model;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
