@@ -1,8 +1,11 @@
 package mad.friend.view;
 
+import android.app.Notification;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,12 +21,15 @@ import mad.friend.controller.NetworkChangeReceiver;
 import mad.friend.controller.friend.AddContactListener;
 import mad.friend.controller.meeting.DisplayMeetingListListener;
 import mad.friend.controller.friend.EditFriendListener;
+import mad.friend.model.MeetingModel;
+import mad.friend.model.database.DBMeetingHelper;
 import mad.friend.view.model.FriendListAdapter;
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 import mad.friend.model.contact.ContactDataManager;
 import mad.friend.model.database.DBFriendHelper;
 import mad.friend.model.stub.TestLocationService;
+import mad.friend.view.model.FriendTrackerNotification;
 import util.FriendTrackerUtil;
 
 /**
@@ -43,6 +49,8 @@ public class FriendListActivity extends AppCompatActivity
     private ListView friendListView;
 
     private DBFriendHelper dbFriend;
+    private DBMeetingHelper dbMeeting;
+    BroadcastReceiver networkChangeReceiver = new NetworkChangeReceiver();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -51,6 +59,7 @@ public class FriendListActivity extends AppCompatActivity
         this.setContentView(R.layout.friend_list_view);
 
         dbFriend = new DBFriendHelper(this);
+        dbMeeting = new DBMeetingHelper(this);
 
         Log.i(LOG_TAG, "OnCreate()");
 
@@ -71,8 +80,9 @@ public class FriendListActivity extends AppCompatActivity
         // Use dummy data
         TestLocationService.test(this);
 
+        // Sends an intent to check network changes, Registers network change receiver to class
         IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        this.registerReceiver(new NetworkChangeReceiver(), networkStatus);
+        this.registerReceiver(networkChangeReceiver, networkStatus);
     }
 
     @Override
@@ -99,6 +109,15 @@ public class FriendListActivity extends AppCompatActivity
         Log.i(LOG_TAG, "onStart()");
 
         dbFriend.loadFriends();
+        dbMeeting.loadMeetings();
+
+        // Upcoming Meeting Notifications
+        UpcomingMeetingNotification upcomingMeetingNotification = new UpcomingMeetingNotification(this, 1);
+        // Make notification for just the first meeting to test code
+        Notification firstMeetingNotif = upcomingMeetingNotification.getNotification(MeetingModel.getInstance().getMeetings().get(0));
+        // notify us in 5 seconds
+        //upcomingMeetingNotification.scheduleNotification(firstMeetingNotif, 5000);
+        upcomingMeetingNotification.repeatNotification(firstMeetingNotif, 0.5);
     }
 
     @Override
@@ -171,5 +190,14 @@ public class FriendListActivity extends AppCompatActivity
         Log.i(LOG_TAG, "onStop()");
 
         dbFriend.saveFriends(FriendModel.getInstance().getFriends());
+        dbMeeting.saveMeetings(MeetingModel.getInstance().getMeetings());
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        Log.i(LOG_TAG, "onDestroy()");
+        this.unregisterReceiver(networkChangeReceiver);
     }
 }//class

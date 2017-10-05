@@ -13,6 +13,11 @@ public class FriendTrackerUtil {
     //Result code
     public static final int EDIT_FRIEND = 1;
     public static final int MEETING_ADD_FRIEND = 2;
+    public static final int UPCOMING_MEETING_DISMISS = 3;
+    public static final int UPCOMING_MEETING_REMIND = 4;
+    public static final int UPCOMING_MEETING_CANCEL = 5;
+    public static final int NOTIFY_OF_NOTIFICATION = 6;
+    public static final int REPEAT_NOTIFICATION = 7;
 
     /**
      * Constructor

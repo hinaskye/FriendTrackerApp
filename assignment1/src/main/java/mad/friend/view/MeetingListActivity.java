@@ -1,7 +1,5 @@
 package mad.friend.view;
 
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,15 +7,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hinaskye.assignment1.R;
-import mad.friend.controller.NetworkChangeReceiver;
 import mad.friend.controller.meeting.AddMeetingListener;
 import mad.friend.controller.friend.DisplayFriendListListener;
+import mad.friend.controller.meeting.SuggestNowListener;
 import mad.friend.model.database.DBMeetingHelper;
 import mad.friend.view.model.MeetingListAdapter;
 import mad.friend.model.Meeting;
@@ -66,6 +65,9 @@ public class MeetingListActivity extends AppCompatActivity
         MeetingModel.getInstance().getMeetings().add(m3);
         MeetingModel.getInstance().getMeetings().add(m4);*/
 
+        Button suggestNow = (Button) findViewById(R.id.suggest_now);
+        suggestNow.setOnClickListener(new SuggestNowListener(this));
+
         // Set view based on meeting model
         meeting_list_adapter = new MeetingListAdapter(this, R.layout.meeting_list_content,
                 MeetingModel.getInstance().getMeetings());
@@ -76,9 +78,6 @@ public class MeetingListActivity extends AppCompatActivity
         // Listener for adding a meeting to friend tracker app
         View fab_add_contact = findViewById(R.id.fab_add_meeting);
         fab_add_contact.setOnClickListener(new AddMeetingListener(this));
-
-        IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        this.registerReceiver(new NetworkChangeReceiver(), networkStatus);
     }
 
     @Override

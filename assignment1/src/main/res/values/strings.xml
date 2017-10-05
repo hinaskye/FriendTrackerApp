@@ -18,6 +18,7 @@
     <string name="add_meeting_text">Add Meeting</string>
 
     <!--Meeting-->
+    <string name="suggest_now_text">Suggest Now</string>
     <string name="meeting_title">Meeting</string>
     <string name="add_meeting_title">New Meeting</string>
     <string name="meeting_title_text">Meeting Title</string>

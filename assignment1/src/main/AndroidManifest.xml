@@ -73,6 +73,7 @@
         <activity
             android:name="mad.friend.view.LocationMapsActivity"
             android:label="@string/title_activity_location_maps"></activity>
+        <receiver android:name="mad.friend.controller.NotificationReceiver"></receiver>
     </application>
 
 </manifest>
