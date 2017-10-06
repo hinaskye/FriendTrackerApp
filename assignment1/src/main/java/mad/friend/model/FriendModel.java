@@ -17,6 +17,8 @@ public class FriendModel {
 
     private List<Friend> friends = new ArrayList<Friend>();
     private Map<String,String> friendLocation = new HashMap<String,String>();
+    private double latitude;
+    private double longitude;
 
     private FriendModel() {}
 
@@ -105,6 +107,26 @@ public class FriendModel {
         return friendLocation;
     }
 
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public double getLongitude()
+    {
+        return longitude;
+    }
+
+    public void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude)
+    {
+        this.longitude = longitude;
+    }
+
     /* currently redundant */
     public boolean addFriendLocation(String id, String location)
     {
@@ -118,7 +140,7 @@ public class FriendModel {
      */
     public void printFriendLocation()
     {
-        System.out.println(Arrays.asList(friendLocation));
+        System.err.println(Arrays.asList(friendLocation));
     }
 
     /**

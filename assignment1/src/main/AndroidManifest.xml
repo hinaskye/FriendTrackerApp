@@ -73,7 +73,14 @@
         <activity
             android:name="mad.friend.view.LocationMapsActivity"
             android:label="@string/title_activity_location_maps"></activity>
+        <receiver android:name="mad.friend.controller.NetworkChangeReceiver"></receiver>
         <receiver android:name="mad.friend.controller.NotificationReceiver"></receiver>
+        <receiver android:name="mad.friend.controller.LocationReceiver">
+            <intent-filter>
+                <action android:name="LOCATION_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <service android:name="mad.friend.controller.LocationService"></service>
     </application>
 
 </manifest>

@@ -18,6 +18,8 @@ public class FriendTrackerUtil {
     public static final int UPCOMING_MEETING_CANCEL = 5;
     public static final int NOTIFY_OF_NOTIFICATION = 6;
     public static final int REPEAT_NOTIFICATION = 7;
+    public static final int LOCATION_PERMISSION = 8;
+    public static final int LOCATION_CHANGED = 9;
 
     /**
      * Constructor

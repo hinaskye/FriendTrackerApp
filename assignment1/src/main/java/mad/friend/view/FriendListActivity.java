@@ -1,12 +1,16 @@
 package mad.friend.view;
 
+import android.Manifest;
 import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -16,8 +20,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import hinaskye.assignment1.R;
+import mad.friend.controller.DistanceCalcThread;
+import mad.friend.controller.LocationReceiver;
+import mad.friend.controller.LocationService;
 import mad.friend.controller.NetworkChangeReceiver;
+import mad.friend.controller.NotificationReceiver;
 import mad.friend.controller.friend.AddContactListener;
 import mad.friend.controller.meeting.DisplayMeetingListListener;
 import mad.friend.controller.friend.EditFriendListener;
@@ -50,7 +61,9 @@ public class FriendListActivity extends AppCompatActivity
 
     private DBFriendHelper dbFriend;
     private DBMeetingHelper dbMeeting;
-    BroadcastReceiver networkChangeReceiver = new NetworkChangeReceiver();
+    BroadcastReceiver networkChangeReceiver;
+    BroadcastReceiver locationReceiver;
+    BroadcastReceiver notificationReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -77,12 +90,19 @@ public class FriendListActivity extends AppCompatActivity
         View fab_add_contact = findViewById(R.id.fab_add_contact);
         fab_add_contact.setOnClickListener(new AddContactListener(this));
 
-        // Use dummy data
-        TestLocationService.test(this);
+        int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        // may want to how user why need permission
+        // https://developer.android.com/training/permissions/requesting.html#perm-request
+        if(locationPermission != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    FriendTrackerUtil.LOCATION_PERMISSION);
+        }
 
-        // Sends an intent to check network changes, Registers network change receiver to class
-        IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        this.registerReceiver(networkChangeReceiver, networkStatus);
+        createReceivers();
+
+        // Starts a service to get location data
+        startService(new Intent(this, LocationService.class));
     }
 
     @Override
@@ -110,6 +130,7 @@ public class FriendListActivity extends AppCompatActivity
 
         dbFriend.loadFriends();
         dbMeeting.loadMeetings();
+        Log.i(LOG_TAG, "Loaded Model from DB");
 
         // Upcoming Meeting Notifications
         UpcomingMeetingNotification upcomingMeetingNotification = new UpcomingMeetingNotification(this, 1);
@@ -118,6 +139,13 @@ public class FriendListActivity extends AppCompatActivity
         // notify us in 5 seconds
         //upcomingMeetingNotification.scheduleNotification(firstMeetingNotif, 5000);
         upcomingMeetingNotification.repeatNotification(firstMeetingNotif, 0.5);
+
+        // Sends an intent to check network changes, Registers network change receiver to class
+        IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        this.registerReceiver(networkChangeReceiver, networkStatus);
+
+        Thread thread = new DistanceCalcThread(this);
+        thread.start();
     }
 
     @Override
@@ -125,8 +153,11 @@ public class FriendListActivity extends AppCompatActivity
     {
         super.onResume();
         Log.i(LOG_TAG, "onResume()");
-        friendListView.setAdapter(adapter);
+        // Use dummy data to get location of friends
+        TestLocationService.test(this);
         Log.i(LOG_TAG, FriendModel.getInstance().toString());
+        FriendModel.getInstance().printFriendLocation();
+        friendListView.setAdapter(adapter);
     }
 
      @Override
@@ -191,6 +222,7 @@ public class FriendListActivity extends AppCompatActivity
 
         dbFriend.saveFriends(FriendModel.getInstance().getFriends());
         dbMeeting.saveMeetings(MeetingModel.getInstance().getMeetings());
+        Log.i(LOG_TAG, "Saved model in DB");
     }
 
     @Override
@@ -199,5 +231,12 @@ public class FriendListActivity extends AppCompatActivity
         super.onDestroy();
         Log.i(LOG_TAG, "onDestroy()");
         this.unregisterReceiver(networkChangeReceiver);
+    }
+
+    public void createReceivers()
+    {
+        networkChangeReceiver = new NetworkChangeReceiver();
+        locationReceiver = new LocationReceiver();
+        notificationReceiver = new NotificationReceiver();
     }
 }//class

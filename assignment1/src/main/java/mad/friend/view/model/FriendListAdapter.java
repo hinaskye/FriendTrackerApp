@@ -60,7 +60,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend>
             if(location != null)
             {
                 location.setText((String)FriendModel.getInstance()
-                        .getFriendLocation().get(currentFriend.getId()));
+                        .getFriendLocation().get(currentFriend.getName()));
             }
         }
 

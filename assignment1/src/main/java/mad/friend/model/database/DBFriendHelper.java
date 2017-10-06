@@ -16,7 +16,6 @@ import mad.friend.model.FriendModel;
 /**
  * Created by Hinaskye on 3/10/2017.
  */
-
 public class DBFriendHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "FriendTracker.db";
@@ -87,14 +86,13 @@ public class DBFriendHelper extends SQLiteOpenHelper {
 
         for(Friend friend : friends)
         {
-            Log.i(LOG_TAG, String.format("%s", friend.getName()));
             // Check if friend already in DB
             while(resultSet.moveToNext())
             {
                 if(friend.getId().equals(resultSet.getString(
                         resultSet.getColumnIndex(FRIEND_COLUMN_ID))))
                 {
-                    Log.i(LOG_TAG, String.format("%s in database", friend.getName()));
+                    //Log.i(LOG_TAG, String.format("%s in database", friend.getName()));
                     inDB = true;
                 }
             }
@@ -103,7 +101,6 @@ public class DBFriendHelper extends SQLiteOpenHelper {
             // Else insert friend to DB
             if(inDB == false)
             {
-                Log.i(LOG_TAG, String.format("%s Not in database", friend.getName()));
                 insertFriend(friend);
             }
             // reset for each friend
@@ -129,7 +126,7 @@ public class DBFriendHelper extends SQLiteOpenHelper {
         {
             long newRowId = db.insert(FRIEND_TABLE_NAME, null, friend_values);
         }
-        Log.i(LOG_TAG, "Friend inserted:"+friend.toString());
+        Log.i(LOG_TAG, String.format("FriendDB: Inserted to database %s", friend.toString()));
     }
 
     public void updateBirthday(Friend friend)
@@ -138,6 +135,7 @@ public class DBFriendHelper extends SQLiteOpenHelper {
 
         db.execSQL("UPDATE friend SET birthday='"+friend.getBirthday().getTime()+"' WHERE " +
                 "id='"+friend.getId()+"';");
+        Log.i(LOG_TAG, String.format("FriendDB: Updated birthday of %s", friend.toString()));
     }
 
     public void deleteFriend(String id)
@@ -145,5 +143,6 @@ public class DBFriendHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.execSQL("DELETE FROM friend WHERE id='"+id+"';");
+        Log.i(LOG_TAG, String.format("FriendDB: friend of %s deleted from database", id));
     }
 }// class
