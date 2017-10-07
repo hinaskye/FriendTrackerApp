@@ -1,13 +1,11 @@
 package mad.friend.view;
 
 import android.Manifest;
-import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,15 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import hinaskye.assignment1.R;
 import mad.friend.controller.DistanceCalcThread;
-import mad.friend.controller.LocationReceiver;
+import mad.friend.controller.receiver.LocationReceiver;
 import mad.friend.controller.LocationService;
-import mad.friend.controller.NetworkChangeReceiver;
-import mad.friend.controller.NotificationReceiver;
+import mad.friend.controller.receiver.NetworkChangeReceiver;
+import mad.friend.controller.receiver.NotificationReceiver;
 import mad.friend.controller.friend.AddContactListener;
 import mad.friend.controller.meeting.DisplayMeetingListListener;
 import mad.friend.controller.friend.EditFriendListener;
@@ -40,7 +35,6 @@ import mad.friend.model.FriendModel;
 import mad.friend.model.contact.ContactDataManager;
 import mad.friend.model.database.DBFriendHelper;
 import mad.friend.model.stub.TestLocationService;
-import mad.friend.view.model.FriendTrackerNotification;
 import util.FriendTrackerUtil;
 
 /**

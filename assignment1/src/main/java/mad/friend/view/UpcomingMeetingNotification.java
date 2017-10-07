@@ -1,16 +1,13 @@
 package mad.friend.view;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import java.util.List;
-
 import hinaskye.assignment1.R;
-import mad.friend.controller.NotificationReceiver;
+import mad.friend.controller.receiver.NotificationReceiver;
 import mad.friend.model.Meeting;
 import mad.friend.view.model.FriendTrackerNotification;
 import util.FriendTrackerUtil;

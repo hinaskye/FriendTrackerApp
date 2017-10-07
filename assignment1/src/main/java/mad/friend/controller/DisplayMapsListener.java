@@ -20,13 +20,23 @@ public class DisplayMapsListener implements View.OnClickListener{
         this.location = location;
     }
 
+    public DisplayMapsListener(Context caller, double latitude, double longitude)
+    {
+        current = caller;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     @Override
     public void onClick(View v) {
         Intent mapIntent = new Intent(current, LocationMapsActivity.class);
-        String[] tokens = location.replace("(","").replace(")","").split(",");
+        if(location != null)
+        {
+            String[] tokens = location.replace("(","").replace(")","").split(",");
+            latitude = Double.parseDouble(tokens[0]);
+            longitude = Double.parseDouble(tokens[1]);
+        }
 
-        latitude = Double.parseDouble(tokens[0]);
-        longitude = Double.parseDouble(tokens[1]);
         mapIntent.putExtra("latitude", latitude);
         mapIntent.putExtra("longitude", longitude);
         current.startActivity(mapIntent);

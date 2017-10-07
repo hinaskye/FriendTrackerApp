@@ -1,6 +1,5 @@
 package mad.friend.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -15,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import mad.friend.controller.receiver.NotificationReceiver;
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 import mad.friend.model.WalkingData;
@@ -80,6 +80,8 @@ public class DistanceCalcThread extends Thread {
 
                 // WalkingData object set your walk time, friends walk time, and which friend.
                 walkingData.setFriend(friend);
+                walkingData.setLatitude(mLatitude);
+                walkingData.setLongitude(mLongitude);
                 // Your walk time to the mid point
                 try {
                     String yourRequest = returnJSONStringfromURL(uLatitude, uLongitude, mLatitude, mLongitude);

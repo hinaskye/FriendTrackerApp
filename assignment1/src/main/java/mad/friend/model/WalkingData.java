@@ -13,6 +13,7 @@ public class WalkingData {
     private Friend friend;
     private String dest; // may use for future
     private String origin; // may use for future
+    private double latitude, longitude;
 
     public WalkingData()
     {
@@ -73,6 +74,26 @@ public class WalkingData {
             return true;
         }
         return false;
+    }
+
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude()
+    {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude)
+    {
+        this.longitude = longitude;
     }
 
     public String toString()

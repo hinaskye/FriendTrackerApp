@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend.controller.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

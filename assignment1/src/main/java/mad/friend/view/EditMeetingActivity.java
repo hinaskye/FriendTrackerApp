@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import hinaskye.assignment1.R;
+import mad.friend.controller.DisplayMapsListener;
 import mad.friend.controller.meeting.DeleteMeetingListener;
 import mad.friend.controller.meeting.MeetingAddFriendListener;
 import mad.friend.controller.meeting.MeetingDateListener;
@@ -25,8 +27,11 @@ import mad.friend.controller.meeting.MeetingLocationListener;
 import mad.friend.controller.meeting.MeetingTimeListener;
 import mad.friend.controller.meeting.MeetingTitleListener;
 import mad.friend.model.Friend;
+import mad.friend.model.FriendModel;
 import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
+import mad.friend.model.database.DBFriendHelper;
+import mad.friend.model.database.DBMeetingHelper;
 import util.FriendTrackerUtil;
 
 /**
@@ -40,6 +45,8 @@ public class EditMeetingActivity extends AppCompatActivity {
     private int startTime = 0, endTime = 1;
     private int latitude = 0, longitude = 1;
 
+    private DBFriendHelper dbFriend;
+    private DBMeetingHelper dbMeeting;
     ArrayAdapter adapter;
     ListView meeting_friend_list;
 
@@ -48,6 +55,9 @@ public class EditMeetingActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         Log.i(LOG_TAG, "onCreate()");
+
+        dbFriend = new DBFriendHelper(this);
+        dbMeeting = new DBMeetingHelper(this);
 
         // set view
         setContentView(R.layout.edit_meeting);
@@ -100,6 +110,16 @@ public class EditMeetingActivity extends AppCompatActivity {
             addFriend.setOnClickListener(new MeetingAddFriendListener(this));
 
             // Location Listener
+            TextView meetingLocation = (TextView) findViewById(R.id.meeting_location_text);
+            if(meetingSelected.getLatitude() != 0 && meetingSelected.getLongitude() != 0)
+            {
+                ImageView locationIcon = (ImageView) findViewById(R.id.location_icon);
+                locationIcon.setVisibility(View.VISIBLE);
+                locationIcon.setOnClickListener(new DisplayMapsListener(this,
+                        meetingSelected.getLatitude(), meetingSelected.getLongitude()));
+                meetingLocation.setOnClickListener(new DisplayMapsListener(this,
+                        meetingSelected.getLatitude(), meetingSelected.getLongitude()));
+            }
             // Latitude
             TextView meetingLatitude = (EditText) findViewById((R.id.meeting_latitude));
             meetingLatitude.setText(String.format(Locale.getDefault(),"%.2f",meetingSelected.getLatitude()));
@@ -135,6 +155,8 @@ public class EditMeetingActivity extends AppCompatActivity {
     {
         super.onStop();
         Log.i(LOG_TAG, "onStop()");
+        dbFriend.saveFriends(FriendModel.getInstance().getFriends());
+        dbMeeting.saveMeetings(MeetingModel.getInstance().getMeetings());
     }
 
     @Override

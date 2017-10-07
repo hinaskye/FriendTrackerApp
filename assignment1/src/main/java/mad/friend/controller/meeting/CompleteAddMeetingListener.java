@@ -3,9 +3,8 @@ package mad.friend.controller.meeting;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Toast;
 
-import mad.friend.controller.NotificationReceiver;
+import mad.friend.controller.receiver.NotificationReceiver;
 import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
 import mad.friend.model.database.DBMeetingHelper;

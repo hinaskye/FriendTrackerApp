@@ -23,7 +23,9 @@ import mad.friend.view.FriendListActivity;
 import util.FriendTrackerUtil;
 
 /**
+ * LocationService
  * Referenced and adapted from https://stackoverflow.com/questions/1513485/how-do-i-get-the-current-gps-location-programmatically-in-android
+ *
  */
 public class LocationService extends Service implements LocationListener {
 
@@ -40,7 +42,6 @@ public class LocationService extends Service implements LocationListener {
     {
         Log.i(LOG_TAG, "onCreate()");
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-        //boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_DIST_FOR_UPDATE,
@@ -60,6 +61,10 @@ public class LocationService extends Service implements LocationListener {
         return null;
     }
 
+    /**
+     * Retains current device location in FriendModel and broadcasts a location changed intent
+     * @param location current devices location from gps
+     */
     @Override
     public void onLocationChanged(Location location) {
         Log.i(LOG_TAG, "onLocationChanged()");

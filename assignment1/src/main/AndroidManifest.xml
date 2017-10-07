@@ -76,9 +76,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <receiver android:name="mad.friend.controller.NetworkChangeReceiver" />
-        <receiver android:name="mad.friend.controller.NotificationReceiver" />
-        <receiver android:name="mad.friend.controller.LocationReceiver">
+        <receiver android:name="mad.friend.controller.receiver.NetworkChangeReceiver" />
+        <receiver android:name="mad.friend.controller.receiver.NotificationReceiver" />
+        <receiver android:name="mad.friend.controller.receiver.LocationReceiver">
             <intent-filter>
                 <action android:name="LOCATION_CHANGED" />
             </intent-filter>

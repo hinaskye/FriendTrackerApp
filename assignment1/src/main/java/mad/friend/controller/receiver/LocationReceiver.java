@@ -1,9 +1,11 @@
-package mad.friend.controller;
+package mad.friend.controller.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import mad.friend.controller.DistanceCalcThread;
 
 /**
  * Created by Hinaskye on 6/10/2017.

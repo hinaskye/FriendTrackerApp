@@ -1,6 +1,5 @@
 package mad.friend.view.model;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -9,11 +8,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
-import java.util.Calendar;
-
-import mad.friend.controller.NetworkChangeReceiver;
-import mad.friend.controller.NotificationReceiver;
-import mad.friend.model.Friend;
+import mad.friend.controller.receiver.NotificationReceiver;
 import util.FriendTrackerUtil;
 
 /**
