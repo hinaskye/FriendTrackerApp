@@ -5,16 +5,18 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.util.Log;
 
+import mad.friend.model.Meeting;
 import mad.friend.model.WalkingDataModel;
 import mad.friend.view.SuggestNowNotification;
+import mad.friend.view.UpcomingMeetingNotification;
 import util.FriendTrackerUtil;
 
 /**
  * Created by Hinaskye on 5/10/2017.
  */
-
 public class NotificationReceiver extends BroadcastReceiver {
 
     public static final String NOTIFICATION_ID = "notification_id";
@@ -61,6 +63,16 @@ public class NotificationReceiver extends BroadcastReceiver {
         {
             Log.i(LOG_TAG, "Received dismiss notification event");
             notificationManager.cancel(id);
+        }
+        else if(intent.getAction() == "ALARM_FOR_MEETING")
+        {
+            Log.i(LOG_TAG, "Received intent to schedule an alarm for upcoming meeting");
+            Meeting meeting = (Meeting)intent.getSerializableExtra("meeting");
+            UpcomingMeetingNotification notif = new UpcomingMeetingNotification(context, FriendTrackerUtil.ALARM_FOR_MEETING);
+            System.err.println(meeting.toString());
+            Notification notificaition = notif.getNotification(meeting);
+            long millisBefore = meeting.getStartTime().getTime() - 5*60*1000; //5 minutes
+            notif.scheduleDelayNotification(notificaition, millisBefore);
         }
     }
 

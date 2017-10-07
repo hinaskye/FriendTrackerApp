@@ -51,6 +51,12 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name="mad.friend.view.EditMeetingActivity"
+            android:label="@string/edit_meeting_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="mad.friend.view.AddFriendToMeetingActivity"
             android:label="@string/add_friend_to_meeting_title">

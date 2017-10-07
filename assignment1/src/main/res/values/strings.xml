@@ -23,6 +23,7 @@
     <string name="add_meeting_title">New Meeting</string>
     <string name="meeting_title_text">Meeting Title</string>
     <string name="meeting_title_hint">Title</string>
+    <string name="edit_meeting_title">Edit Meeting</string>
 
     <string name="meeting_date_text">Date</string>
     <string name="meeting_date_hint">Date</string>

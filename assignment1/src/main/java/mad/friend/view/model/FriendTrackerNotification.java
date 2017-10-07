@@ -18,7 +18,7 @@ import util.FriendTrackerUtil;
 
 /**
  * Any notification from friend tracker should extend this class
- * Provides method to scheduleNotification
+ * Provides method to scheduleDelayNotification
  */
 public abstract class FriendTrackerNotification {
 
@@ -34,7 +34,7 @@ public abstract class FriendTrackerNotification {
     }
 
     // schedules an event after x milliseconds
-    public void scheduleNotification(Notification notification, int millis)
+    public void scheduleDelayNotification(Notification notification, long millis)
     {
         // Sends an intent to notification receiver class to deal with
         Intent notificationIntent = new Intent(current, NotificationReceiver.class);
@@ -48,6 +48,24 @@ public abstract class FriendTrackerNotification {
         AlarmManager alarmManager = (AlarmManager)current.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureTimeInMilli, pendingIntent);
         /**/
+    }
+
+    /**
+     *  Schedules a notification at an exact time
+     *  @param exactTime time from epoch
+     */
+    public void scheduleNotification(Notification notification, long exactTime)
+    {
+        // Sends an intent to notification receiver class to deal with
+        Intent notificationIntent = new Intent(current, NotificationReceiver.class);
+        notificationIntent.setAction("NOTIFY_OF_NOTIFICATION");
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID,id);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(current,
+                FriendTrackerUtil.NOTIFY_OF_NOTIFICATION, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager)current.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, exactTime, pendingIntent);
     }
 
     // repeats a notification every x minutes

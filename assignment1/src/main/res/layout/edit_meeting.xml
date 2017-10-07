@@ -6,13 +6,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/meeting_title"
@@ -140,10 +138,10 @@
 
         <!-- Add Button -->
         <Button
-            android:id="@+id/add_meeting_button"
+            android:id="@+id/remove_meeting_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_meeting_button_text"
+            android:text="@string/remove_meeting_text"
             android:layout_gravity="right" />
 
     </LinearLayout>

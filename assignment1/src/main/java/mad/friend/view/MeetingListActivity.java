@@ -16,6 +16,7 @@ import java.util.List;
 import hinaskye.assignment1.R;
 import mad.friend.controller.meeting.AddMeetingListener;
 import mad.friend.controller.friend.DisplayFriendListListener;
+import mad.friend.controller.meeting.EditMeetingListener;
 import mad.friend.controller.meeting.SuggestNowListener;
 import mad.friend.model.database.DBMeetingHelper;
 import mad.friend.view.model.MeetingListAdapter;
@@ -75,6 +76,10 @@ public class MeetingListActivity extends AppCompatActivity
         meetingListView = (ListView) findViewById(R.id.meeting_list);
         meetingListView.setAdapter(meeting_list_adapter);
 
+        // Listeners
+        // Edit meeting listener
+        meetingListView.setOnItemClickListener(new EditMeetingListener(this));
+
         // Listener for adding a meeting to friend tracker app
         View fab_add_contact = findViewById(R.id.fab_add_meeting);
         fab_add_contact.setOnClickListener(new AddMeetingListener(this));
@@ -115,10 +120,6 @@ public class MeetingListActivity extends AppCompatActivity
         super.onResume();
         meetingListView.setAdapter(meeting_list_adapter);
         Log.i(LOG_TAG, "onResume()");
-        for(Meeting m : MeetingModel.getInstance().getMeetings())
-        {
-            Log.d(LOG_TAG, m.toString());
-        }
     }
 
     @Override

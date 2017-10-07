@@ -2,6 +2,7 @@ package mad.friend.model;
 
 import android.location.Location;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Meeting model
  */
-public class Meeting implements MeetingInterface {
+public class Meeting implements MeetingInterface, Serializable {
     private String id;
     private String title;
     private Date date;

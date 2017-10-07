@@ -132,13 +132,14 @@ public class FriendListActivity extends AppCompatActivity
         dbMeeting.loadMeetings();
         Log.i(LOG_TAG, "Loaded Model from DB");
 
+        /*
         // Upcoming Meeting Notifications
         UpcomingMeetingNotification upcomingMeetingNotification = new UpcomingMeetingNotification(this, 1);
         // Make notification for just the first meeting to test code
         Notification firstMeetingNotif = upcomingMeetingNotification.getNotification(MeetingModel.getInstance().getMeetings().get(0));
         // notify us in 5 seconds
-        //upcomingMeetingNotification.scheduleNotification(firstMeetingNotif, 5000);
-        upcomingMeetingNotification.repeatNotification(firstMeetingNotif, 0.5);
+        //upcomingMeetingNotification.scheduleDelayNotification(firstMeetingNotif, 5000);
+        upcomingMeetingNotification.repeatNotification(firstMeetingNotif, 0.5);*/
 
         // Sends an intent to check network changes, Registers network change receiver to class
         IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
