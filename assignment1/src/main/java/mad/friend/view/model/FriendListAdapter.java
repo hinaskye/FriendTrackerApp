@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import hinaskye.assignment1.R;
+import mad.friend.controller.DisplayMapsListener;
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 
@@ -59,8 +60,30 @@ public class FriendListAdapter extends ArrayAdapter<Friend>
             }
             if(location != null)
             {
-                location.setText((String)FriendModel.getInstance()
-                        .getFriendLocation().get(currentFriend.getName()));
+
+                String locationText = (String)FriendModel.getInstance()
+                        .getFriendLocation().get(currentFriend.getName());
+                if(locationText!=null)
+                {   // remove so displays location to 2 decimals, simple fix used for now
+                    StringBuilder build = new StringBuilder(locationText);
+                    build.deleteCharAt(7);
+                    build.deleteCharAt(7);
+                    build.deleteCharAt(7);
+                    build.deleteCharAt(7);
+                    build.deleteCharAt(14);
+                    build.deleteCharAt(14);
+                    build.deleteCharAt(14);
+                    build.deleteCharAt(14);
+                    location.setText(build.toString());
+                    location.setOnClickListener(new DisplayMapsListener(getContext(),
+                            (String)FriendModel.getInstance()
+                                    .getFriendLocation().get(currentFriend.getName())));
+                }
+                else
+                {
+                    location.setText("");
+                }
+                //location.setText((String)FriendModel.getInstance().getFriendLocation().get(currentFriend.getName()));
             }
         }
 

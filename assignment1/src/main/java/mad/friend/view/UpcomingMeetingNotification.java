@@ -3,6 +3,7 @@ package mad.friend.view;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
@@ -20,7 +21,7 @@ import util.FriendTrackerUtil;
 
 public class UpcomingMeetingNotification extends FriendTrackerNotification {
 
-    public UpcomingMeetingNotification(Activity caller, int id)
+    public UpcomingMeetingNotification(Context caller, int id)
     {
         super(caller, id);
     }
@@ -28,11 +29,21 @@ public class UpcomingMeetingNotification extends FriendTrackerNotification {
     /* Returns the Notification object containing the meeting data */
     public Notification getNotification(Meeting meeting)
     {
-        /* TODO need to add intents*/
+        // Cancel
         Intent intent = new Intent(current, NotificationReceiver.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction("DISMISS_NOTIFICATION");
         intent.putExtra(NotificationReceiver.NOTIFICATION_ID, id);
+        intent.setAction("CANCEL_MEETING");
+        PendingIntent cancelIntent = PendingIntent.getBroadcast(current,
+                FriendTrackerUtil.UPCOMING_MEETING_CANCEL, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        // Remind
+        intent.setAction("REMIND_IN");
+        PendingIntent remindIntent = PendingIntent.getBroadcast(current,
+                FriendTrackerUtil.UPCOMING_MEETING_REMIND, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        // Dismiss
+        intent.setAction("DISMISS_NOTIFICATION");
         PendingIntent dismissIntent = PendingIntent.getBroadcast(current, FriendTrackerUtil.UPCOMING_MEETING_DISMISS,
                 intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -40,8 +51,8 @@ public class UpcomingMeetingNotification extends FriendTrackerNotification {
         builder.setContentTitle("Upcoming meeting")
                 .setContentText(String.format("%s at %s", meeting.getTitle(), meeting.getStartTime().toString()))
                 .setSmallIcon(R.drawable.ic_notification_icon)
-                .addAction(R.drawable.ic_cancel, "cancel", dismissIntent)
-                .addAction(R.drawable.ic_remind, "remind", dismissIntent)
+                .addAction(R.drawable.ic_cancel, "cancel", cancelIntent)
+                .addAction(R.drawable.ic_remind, "remind", remindIntent)
                 .addAction(R.drawable.ic_dismiss, "dismiss", dismissIntent)
                 .setAutoCancel(true);
 

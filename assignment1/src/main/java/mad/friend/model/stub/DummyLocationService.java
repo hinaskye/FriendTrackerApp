@@ -64,7 +64,7 @@ public class DummyLocationService
 
         public String getLocationString()
         {
-            return String.format("(%.2f,%.2f)",getLatitude(), getLongitude());
+            return String.format("(%.6f,%.6f)",getLatitude(), getLongitude());
         }
 
         public double getLatitude()

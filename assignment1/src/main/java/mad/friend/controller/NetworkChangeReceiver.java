@@ -51,6 +51,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE)
             {
                 Toast.makeText(context, "Mobile Data On", Toast.LENGTH_SHORT).show();
+                Intent suggestNowIntent = new Intent(context, LocationReceiver.class);
+                suggestNowIntent.setAction("SUGGEST_NOW");
+                context.sendBroadcast(suggestNowIntent);
             }
         }
     }

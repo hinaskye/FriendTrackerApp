@@ -22,12 +22,12 @@ import util.FriendTrackerUtil;
  */
 public abstract class FriendTrackerNotification {
 
-    public Activity current;
+    public Context current;
     public int id;
 
     private String LOG_TAG = this.getClass().getName();
 
-    public FriendTrackerNotification(Activity caller, int id)
+    public FriendTrackerNotification(Context caller, int id)
     {
         current = caller;
         this.id =  id;

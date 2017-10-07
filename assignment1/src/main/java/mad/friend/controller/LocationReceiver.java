@@ -22,7 +22,8 @@ public class LocationReceiver extends BroadcastReceiver {
         }
         else if(intent.getAction() == "SUGGEST_NOW")
         {
-
+            Thread distCalcThread = new DistanceCalcThread(context);
+            distCalcThread.start();
         }
     }
 }

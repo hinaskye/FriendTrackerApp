@@ -7,6 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import mad.friend.model.WalkingDataModel;
+import mad.friend.view.SuggestNowNotification;
+import util.FriendTrackerUtil;
+
 /**
  * Created by Hinaskye on 5/10/2017.
  */
@@ -23,7 +27,25 @@ public class NotificationReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         int id = intent.getIntExtra(NOTIFICATION_ID, 0);
 
-        if(intent.getAction() == "NOTIFY_OF_NOTIFICATION")
+        if(intent.getAction() == "SUGGEST_NOW_NOTIFICATION")
+        {
+            Log.i(LOG_TAG, "Received suggest now notification");
+            // If there is data
+            if(!(WalkingDataModel.getInstance().getListSize() == WalkingDataModel.getInstance().currentIndex))
+            {
+                SuggestNowNotification suggestNowNotification =
+                        new SuggestNowNotification(context, FriendTrackerUtil.SUGGEST_NOW_NOTIFICATON_ID);
+                Notification notification = suggestNowNotification.getNotification();
+                WalkingDataModel.getInstance().incrementIndex();
+                notificationManager.notify(FriendTrackerUtil.SUGGEST_NOW_NOTIFICATON_ID, notification);
+            }
+            else
+            {   // cancel notification if all friends have been suggested
+                WalkingDataModel.getInstance().resetIndex();
+                notificationManager.cancel(FriendTrackerUtil.SUGGEST_NOW_NOTIFICATON_ID);
+            }
+        }
+        else if(intent.getAction() == "NOTIFY_OF_NOTIFICATION")
         {
             Log.i(LOG_TAG, "Received notify of notification, displaying notification");
             Notification notification = intent.getParcelableExtra(NOTIFICATION);
@@ -40,5 +62,10 @@ public class NotificationReceiver extends BroadcastReceiver {
             Log.i(LOG_TAG, "Received dismiss notification event");
             notificationManager.cancel(id);
         }
+    }
+
+    public void suggestNowNotification(Context context)
+    {
+        SuggestNowNotification suggestNowNotification = new SuggestNowNotification(context, FriendTrackerUtil.SUGGEST_NOW_NOTIFICATON_ID);
     }
 }

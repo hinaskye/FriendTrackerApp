@@ -20,6 +20,10 @@ public class FriendTrackerUtil {
     public static final int REPEAT_NOTIFICATION = 7;
     public static final int LOCATION_PERMISSION = 8;
     public static final int LOCATION_CHANGED = 9;
+    public static final int SUGGEST_NOW_NOTIFICATON_ID = 10;
+    public static final int CREATE_SUGGESTTED_MEETING = 11;
+    public static final int SUGGEST_NOW_NOTIFICATION = 12;
+    public static final int SUGGEST_NOW_NOTIFICATION_DISMISS = 13;
 
     /**
      * Constructor

@@ -2,6 +2,7 @@ package mad.friend.view;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +15,7 @@ import hinaskye.assignment1.R;
 
 public class LocationMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private String LOG_TAG = this.getClass().getName();
     private GoogleMap mMap;
     private double latitude, longitude;
 
@@ -47,8 +49,8 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         LatLng friend = new LatLng(latitude, longitude);
+        Log.i(LOG_TAG, String.format("latitude %f longitude %f", latitude, longitude));
         mMap.addMarker(new MarkerOptions().position(friend).title("Marker of Friend"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(friend));
 
