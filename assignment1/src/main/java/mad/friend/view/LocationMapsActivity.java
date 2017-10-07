@@ -22,7 +22,7 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.location_maps);
+        setContentView(R.layout.locations_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -35,7 +35,6 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
             longitude = (double) extras.get("longitude");
         }
     }
-
 
     /**
      * Manipulates the map once available.
