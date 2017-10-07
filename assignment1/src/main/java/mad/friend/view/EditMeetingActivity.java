@@ -36,7 +36,7 @@ import util.FriendTrackerUtil;
 
 /**
  * EditMeetingActivity
- * Allows user to edit a meeting details
+ * Allows user to edit a meeting details, view location of meeting or delete the relevant meeting
  */
 public class EditMeetingActivity extends AppCompatActivity {
 

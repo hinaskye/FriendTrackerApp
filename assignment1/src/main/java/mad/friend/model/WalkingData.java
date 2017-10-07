@@ -13,7 +13,7 @@ public class WalkingData {
     private Friend friend;
     private String dest; // may use for future
     private String origin; // may use for future
-    private double latitude, longitude;
+    private double latitude, longitude; // mid point
 
     public WalkingData()
     {
@@ -62,11 +62,18 @@ public class WalkingData {
         this.friend = friend;
     }
 
+    /**
+     * Calculates the max walk time between you and your friend towards the destination
+     * @return max walk time between you and your friend
+     */
     public int maxWalkingTime()
     {
         return Math.max(yours, theirs);
     }
 
+    /**
+     * @return true if you and your friend's walk time is available, false otherwise.
+     */
     public boolean timeIsSet()
     {
         if(yours != 0 && theirs != 0)

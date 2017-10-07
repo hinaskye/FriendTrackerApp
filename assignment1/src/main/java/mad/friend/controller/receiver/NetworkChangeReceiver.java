@@ -8,9 +8,9 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 /**
- * Created by Hinaskye on 5/10/2017.
+ * NetworkChangeReceiver
+ * Receivers network changes and broadcast a suggest now intent if network is on
  */
-
 public class NetworkChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -34,6 +34,10 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
+    /**
+     *  Displays a toast for network connection changes
+     *  Broadcasts a suggest now meeting if there is network available
+     */
     public void showNetworkType(Context context)
     {
         NetworkInfo networkInfo = getActivityNetworkInfo(context);
@@ -47,10 +51,15 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
             {
                 Toast.makeText(context, "Wifi On", Toast.LENGTH_SHORT).show();
+                Intent suggestNowIntent = new Intent(context, LocationReceiver.class);
+                suggestNowIntent.setAction("SUGGEST_NOW");
+                context.sendBroadcast(suggestNowIntent);
             }
             else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE)
             {
+                // Broadcast to suggest a meeting now when mobile data is on
                 Toast.makeText(context, "Mobile Data On", Toast.LENGTH_SHORT).show();
+                // On real phone potentially only use wifi to broadcast
                 Intent suggestNowIntent = new Intent(context, LocationReceiver.class);
                 suggestNowIntent.setAction("SUGGEST_NOW");
                 context.sendBroadcast(suggestNowIntent);

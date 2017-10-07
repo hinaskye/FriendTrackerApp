@@ -13,9 +13,9 @@ import mad.friend.view.model.FriendTrackerNotification;
 import util.FriendTrackerUtil;
 
 /**
- * Created by Hinaskye on 5/10/2017.
+ * Upcoming meeting notification
+ * Sets the content of the notification to an upcoming meeting
  */
-
 public class UpcomingMeetingNotification extends FriendTrackerNotification {
 
     public UpcomingMeetingNotification(Context caller, int id)

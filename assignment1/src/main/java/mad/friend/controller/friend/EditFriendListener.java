@@ -12,10 +12,10 @@ import util.FriendTrackerUtil;
 
 /**
  * Edit Friend Listener
- * Currently activated on long click from the list view
+ * When friend on friend list is clicked
  * Will create a edit friend intent and start the edit friend activity
  */
-public class EditFriendListener implements AdapterView.OnItemLongClickListener {
+public class EditFriendListener implements AdapterView.OnItemClickListener {
 
     private Activity current;
 
@@ -24,12 +24,10 @@ public class EditFriendListener implements AdapterView.OnItemLongClickListener {
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // starts the EditFriendActivity and passes position of friend on list view over
         Intent editIntent = new Intent(current, EditFriendActivity.class);
         editIntent.putExtra("position", position);
         current.startActivityForResult(editIntent, FriendTrackerUtil.EDIT_FRIEND);
-        //current.startActivity(editIntent);
-        return true;
     }
 }

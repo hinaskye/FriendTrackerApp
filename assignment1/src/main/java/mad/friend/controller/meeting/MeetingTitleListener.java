@@ -9,14 +9,19 @@ import android.widget.TextView;
 import mad.friend.model.Meeting;
 
 /**
- * Created by Hinaskye on 3/10/2017.
+ * MeetingTitleListener
+ * Simply sets the meeting title when edit text has finish changing
  */
-
 public class MeetingTitleListener implements TextWatcher {
 
     Activity current;
     Meeting meeting;
 
+    /**
+     *
+     * @param caller
+     * @param meeting Meeting whose title is being edited
+     */
     public MeetingTitleListener(Activity caller, Meeting meeting)
     {
         current = caller;
@@ -35,6 +40,9 @@ public class MeetingTitleListener implements TextWatcher {
 
     }
 
+    /**
+     *  set meeting title to user defined title
+     */
     @Override
     public void afterTextChanged(Editable s)
     {

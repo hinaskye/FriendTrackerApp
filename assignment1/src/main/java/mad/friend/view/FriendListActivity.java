@@ -39,6 +39,7 @@ import util.FriendTrackerUtil;
 
 /**
  * Friend List Activity
+ * Shows your list of friends and their location if its available
  */
 public class FriendListActivity extends AppCompatActivity
 {
@@ -78,7 +79,7 @@ public class FriendListActivity extends AppCompatActivity
         friendListView.setAdapter(adapter);
 
         // Add an edit listener to each item on long click
-        friendListView.setOnItemLongClickListener(new EditFriendListener(this));
+        friendListView.setOnItemClickListener(new EditFriendListener(this));
 
         // Listener for adding contact to friend tracker app on our floating action bar
         View fab_add_contact = findViewById(R.id.fab_add_contact);

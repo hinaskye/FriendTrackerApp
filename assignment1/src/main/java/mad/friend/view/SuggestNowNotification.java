@@ -54,8 +54,8 @@ public class SuggestNowNotification extends FriendTrackerNotification {
         meeting.setDate(new Date());
         meeting.setLatitude(currentData.getLatitude());
         meeting.setLongitude(currentData.getLongitude());
-        meeting.setStartTime(new Time(Calendar.getInstance().getTimeInMillis() + currentData.maxWalkingTime()));
-        meeting.setEndTime(new Time(Calendar.getInstance().getTimeInMillis() + currentData.maxWalkingTime() + 10*60*1000));
+        meeting.setStartTime(new Time(Calendar.getInstance().getTimeInMillis() + currentData.maxWalkingTime()*60*1000));
+        meeting.setEndTime(new Time(Calendar.getInstance().getTimeInMillis() + currentData.maxWalkingTime()*60*1000 + 10*60*1000));
         meeting.addFriend(currentData.getFriend());
         intent.putExtra("meeting", meeting);
         // pending intent for creating new meeting

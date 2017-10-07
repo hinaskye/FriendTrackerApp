@@ -25,7 +25,7 @@ import util.FriendTrackerUtil;
 /**
  * LocationService
  * Referenced and adapted from https://stackoverflow.com/questions/1513485/how-do-i-get-the-current-gps-location-programmatically-in-android
- *
+ * Service which details when location has updated based on GPS
  */
 public class LocationService extends Service implements LocationListener {
 
@@ -62,7 +62,7 @@ public class LocationService extends Service implements LocationListener {
     }
 
     /**
-     * Retains current device location in FriendModel and broadcasts a location changed intent
+     * Retains current device location in FriendModel and broadcasts a location has changed
      * @param location current devices location from gps
      */
     @Override

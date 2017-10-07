@@ -9,6 +9,7 @@ import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 
 /**
+ * AddFriendToMeetingListener
  * When a friend is selected, this will return the friend object and finish the current activity
  */
 public class AddFriendToMeetingListener implements AdapterView.OnItemClickListener {

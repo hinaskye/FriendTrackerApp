@@ -14,7 +14,8 @@ import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 
 /**
- * Created by Hinaskye on 3/10/2017.
+ * Friend Database Helper
+ * Creates table or opens and performs other friend related operations to local SQLite database
  */
 public class DBFriendHelper extends SQLiteOpenHelper {
 
@@ -39,7 +40,7 @@ public class DBFriendHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO
+
     }
 
     public Cursor getAllFriends()
@@ -56,6 +57,9 @@ public class DBFriendHelper extends SQLiteOpenHelper {
         return resultSet;
     }
 
+    /**
+     * Load all friends from the database to the FriendModel
+     */
     public void loadFriends()
     {
         Cursor resultSet = getAllFriends();
@@ -79,6 +83,10 @@ public class DBFriendHelper extends SQLiteOpenHelper {
         resultSet.close();
     }
 
+    /**
+     * Saves any new friends to the database
+     * @param friends List of friends from the FriendModel
+     */
     public void saveFriends(List<Friend> friends)
     {
         boolean inDB = false;
@@ -109,6 +117,10 @@ public class DBFriendHelper extends SQLiteOpenHelper {
         resultSet.close();
     }
 
+    /**
+     * Inserts the friend to the database
+     * @param friend Friend to be inserted
+     */
     public void insertFriend(Friend friend)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -129,6 +141,10 @@ public class DBFriendHelper extends SQLiteOpenHelper {
         Log.i(LOG_TAG, String.format("FriendDB: Inserted to database %s", friend.toString()));
     }
 
+    /**
+     * Updates birthday of the friend
+     * @param friend
+     */
     public void updateBirthday(Friend friend)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -138,6 +154,10 @@ public class DBFriendHelper extends SQLiteOpenHelper {
         Log.i(LOG_TAG, String.format("FriendDB: Updated birthday of %s", friend.toString()));
     }
 
+    /**
+     * Delete a friend based on their id
+     * @param id Friend id
+     */
     public void deleteFriend(String id)
     {
         SQLiteDatabase db = this.getWritableDatabase();

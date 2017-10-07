@@ -8,9 +8,9 @@ import android.util.Log;
 import mad.friend.controller.DistanceCalcThread;
 
 /**
- * Created by Hinaskye on 6/10/2017.
+ * LocationReceiver
+ * Receives location has change updates and suggest meeting now if network has changed
  */
-
 public class LocationReceiver extends BroadcastReceiver {
 
     private String LOG_TAG = this.getClass().getName();

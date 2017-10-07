@@ -8,9 +8,9 @@ import android.widget.AdapterView;
 import mad.friend.view.EditMeetingActivity;
 
 /**
- * Created by Hinaskye on 7/10/2017.
+ * EditMeetingListener
+ * Opens up an edit meeting activity for the selected meeting in the list view
  */
-
 public class EditMeetingListener implements AdapterView.OnItemClickListener {
 
     private Activity current;
@@ -22,8 +22,8 @@ public class EditMeetingListener implements AdapterView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        Intent editFriendIntent = new Intent(current, EditMeetingActivity.class);
-        editFriendIntent.putExtra("position", position);
-        current.startActivity(editFriendIntent);
+        Intent editMeetingIntent = new Intent(current, EditMeetingActivity.class);
+        editMeetingIntent.putExtra("position", position);
+        current.startActivity(editMeetingIntent);
     }
 }

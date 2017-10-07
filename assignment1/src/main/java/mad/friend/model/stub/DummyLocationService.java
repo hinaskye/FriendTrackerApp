@@ -24,6 +24,9 @@ import java.util.Scanner;
 import hinaskye.assignment1.R;
 import mad.friend.model.FriendModel;
 
+/**
+ * Added code to retrieve any location details of matched queries and place in a Map in FriendModel
+ */
 public class DummyLocationService
 {
     // PRIVATE PORTION

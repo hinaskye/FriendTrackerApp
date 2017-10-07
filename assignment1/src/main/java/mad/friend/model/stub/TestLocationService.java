@@ -6,7 +6,7 @@ import android.util.Log;
 import java.util.Date;
 import java.util.List;
 
-// Suppoort code by Caspar for MAD assignment s2 2017
+// Support code by Caspar for MAD assignment s2 2017
 // Simple example to test dummy location service (for demonstration only)
 // Usage: add class in appropriate package (also see TestLocationService.java)
 //       TestLocationService.test(this); // pass a valid Context (NOTE: Activity extends Context)

@@ -6,9 +6,10 @@ import android.view.View;
 import mad.friend.controller.DistanceCalcThread;
 
 /**
- * Created by Hinaskye on 6/10/2017.
+ * SuggestNowListener
+ * Creates the thread that calculates the distance and sends a broadcast
+ * to display a suggest now notification
  */
-
 public class SuggestNowListener implements View.OnClickListener {
 
     Activity current;

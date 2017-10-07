@@ -22,6 +22,12 @@ public class MeetingDateListener implements View.OnClickListener, DatePickerDial
     TextView editText;
     Meeting meeting;
 
+    /**
+     *
+     * @param caller Parent activity
+     * @param editText EditText that will have its text changed upon date selected from picker
+     * @param meeting Sets this meeting's Date based on picker
+     */
     public MeetingDateListener(Activity caller, TextView editText, Meeting meeting)
     {
         current = caller;
@@ -43,6 +49,10 @@ public class MeetingDateListener implements View.OnClickListener, DatePickerDial
         dpa.show();
     }
 
+    /**
+     *  Sets the date of the meeting to the chosen one from the picker
+     *  In the format of dd MMMM yyyy
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();

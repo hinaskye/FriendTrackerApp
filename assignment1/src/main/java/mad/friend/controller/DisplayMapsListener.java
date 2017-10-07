@@ -7,13 +7,16 @@ import android.view.View;
 import mad.friend.view.LocationMapsActivity;
 
 /**
- * Created by Hinaskye on 7/10/2017.
+ * DisplayMapsListener
+ * Displayed a google map based on location in the form of (lat,long)
+ * or based on latitude and longitude values
  */
 public class DisplayMapsListener implements View.OnClickListener{
 
     Context current;
     String location;
     double latitude, longitude;
+
     public DisplayMapsListener(Context caller, String location)
     {
         current = caller;
@@ -30,6 +33,7 @@ public class DisplayMapsListener implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         Intent mapIntent = new Intent(current, LocationMapsActivity.class);
+        // (lat,long) parse just the lat or long details
         if(location != null)
         {
             String[] tokens = location.replace("(","").replace(")","").split(",");

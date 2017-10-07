@@ -16,6 +16,7 @@ import mad.friend.model.Friend;
 import mad.friend.model.Meeting;
 
 /**
+ * MeetingFriendListAdapter
  * Displays the content of the meeting listview based on our meeting model class
  */
 public class MeetingFriendListAdapter extends ArrayAdapter<Meeting> {
@@ -45,7 +46,7 @@ public class MeetingFriendListAdapter extends ArrayAdapter<Meeting> {
         // Set view of current friend object
         if(currentFriend != null)
         {
-            // More information to be added
+            // May want to add image if function implemented
             TextView name = (TextView) newView.findViewById(R.id.meeting_friend_name);
 
             if(name != null)

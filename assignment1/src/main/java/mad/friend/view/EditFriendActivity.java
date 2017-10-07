@@ -16,7 +16,7 @@ import mad.friend.model.FriendModel;
 
 /**
  * Edit Friend Activity
- *
+ * Allows to edit friend details or delete friend
  */
 public class EditFriendActivity extends AppCompatActivity
 {

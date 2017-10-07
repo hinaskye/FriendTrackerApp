@@ -7,9 +7,10 @@ import android.text.TextWatcher;
 import mad.friend.model.Meeting;
 
 /**
- * Created by Hinaskye on 3/10/2017.
+ * MeetingLocationListener
+ * Used for both latitude and longitude changes to their edit text
+ * Sets the meeting latitude or longitude after edit text has changed
  */
-
 public class MeetingLocationListener implements TextWatcher {
 
     Activity current;
@@ -39,6 +40,9 @@ public class MeetingLocationListener implements TextWatcher {
 
     }
 
+    /**
+     *  sets latitude or longitude based on position as shown in constructor
+     */
     @Override
     public void afterTextChanged(Editable s) {
         if(position == latitude)

@@ -13,6 +13,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import hinaskye.assignment1.R;
 
+/**
+ * Template as from android studio
+ * Added method to get latitude and longitude from intent so can display that location
+ * Also zooms in automatically on specified location intent
+ */
 public class LocationMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private String LOG_TAG = this.getClass().getName();
@@ -52,6 +57,7 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
         Log.i(LOG_TAG, String.format("latitude %f longitude %f", latitude, longitude));
         mMap.addMarker(new MarkerOptions().position(friend).title("Marker of Friend"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(friend));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(friend, 15)); // Zoom in on location
 
         // Add a marker in Sydney and move the camera
         /*LatLng sydney = new LatLng(-34, 151);

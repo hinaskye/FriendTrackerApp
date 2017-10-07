@@ -31,7 +31,7 @@ import util.FriendTrackerUtil;
 
 /**
  * Add Meeting Activity
- * Current just shows layout for adding a meeting
+ * Adds a new meeting to the MeetingModel upon completion
  */
 public class AddMeetingActivity extends AppCompatActivity
 {
@@ -55,7 +55,7 @@ public class AddMeetingActivity extends AppCompatActivity
         // set new meeting id to random unique id of length 4
         meeting.setId(FriendTrackerUtil.uniqueId(4));
 
-        // friend list view for each friend added
+        // Friend list view for each friend added
         meeting_friend_list = (ListView) findViewById(R.id.meeting_friends_invited);
         adapter = new MeetingFriendListAdapter(this, R.layout.meeting_friend_list_content,
                 meeting.getInvited());
@@ -63,7 +63,7 @@ public class AddMeetingActivity extends AppCompatActivity
 
         setListViewHeightBasedOnChildren(meeting_friend_list);
 
-        // listeners
+        // Listeners
         // Title Listener
         TextView meetingTitle = (EditText) findViewById(R.id.edit_meeting_title);
         meetingTitle.addTextChangedListener(new MeetingTitleListener(this, meeting));

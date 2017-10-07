@@ -15,9 +15,9 @@ import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
 
 /**
- * Created by Hinaskye on 5/10/2017.
+ * Meeting Database Helper
+ * Creates table or opens and performs other meeting related operations to local SQLite database
  */
-
 public class DBMeetingHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "FriendTracker.db";
@@ -45,7 +45,7 @@ public class DBMeetingHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO
+
     }
 
     public Cursor getAllMeetings()
@@ -59,6 +59,9 @@ public class DBMeetingHelper extends SQLiteOpenHelper {
         return resultSet;
     }
 
+    /**
+     * Load all meetings to the MeetingModel
+     */
     public void loadMeetings()
     {
         Cursor resultSet = getAllMeetings();
@@ -77,6 +80,10 @@ public class DBMeetingHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Save all new meetings to the database
+     * @param meetings List of meetings from the MeetingModel
+     */
     public void saveMeetings(List<Meeting> meetings)
     {
         boolean inDB = false;
@@ -101,6 +108,10 @@ public class DBMeetingHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Insert the meeting into the database
+     * @param meeting Meeting to be inserted
+     */
     public void insertMeeting(Meeting meeting)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -118,12 +129,14 @@ public class DBMeetingHelper extends SQLiteOpenHelper {
         Log.i(LOG_TAG, "Meeting inserted:"+meeting.toString());
     }
 
+    /**
+     * Delete a meeting from the database based on its id
+     * @param id Meeting id
+     */
     public void deleteMeeting(String id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.execSQL("DELETE FROM meeting WHERE id='"+id+"';");
     }
-
-    // Need to insert edit meeting options
 }

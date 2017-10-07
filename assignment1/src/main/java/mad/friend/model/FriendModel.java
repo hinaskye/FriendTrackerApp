@@ -17,8 +17,7 @@ public class FriendModel {
 
     private List<Friend> friends = new ArrayList<Friend>();
     private Map<String,String> friendLocation = new HashMap<String,String>();
-    private double latitude;
-    private double longitude;
+    private double latitude, longitude; //user's current location
 
     private FriendModel() {}
 

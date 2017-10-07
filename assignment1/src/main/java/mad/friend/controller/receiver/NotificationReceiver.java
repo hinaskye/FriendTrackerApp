@@ -21,7 +21,8 @@ import mad.friend.view.UpcomingMeetingNotification;
 import util.FriendTrackerUtil;
 
 /**
- * Created by Hinaskye on 5/10/2017.
+ * NotificationReceiver
+ * Receives broadcast events that have to do with notification for FriendTracker app
  */
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -35,6 +36,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         int id = intent.getIntExtra(NOTIFICATION_ID, 0);
 
+        // Suggest a new meeting notification
         if(intent.getAction() == "SUGGEST_NOW_NOTIFICATION")
         {
             Log.i(LOG_TAG, "Received suggest now notification");
@@ -52,34 +54,34 @@ public class NotificationReceiver extends BroadcastReceiver {
                 WalkingDataModel.getInstance().resetIndex();
                 notificationManager.cancel(FriendTrackerUtil.SUGGEST_NOW_NOTIFICATON_ID);
             }
-        }
+        }   // Display a notification
         else if(intent.getAction() == "NOTIFY_OF_NOTIFICATION")
         {
             Log.i(LOG_TAG, "Received notify of notification, displaying notification");
             Notification notification = intent.getParcelableExtra(NOTIFICATION);
             notificationManager.notify(id, notification);
-        }
+        }   // Repeated notification event
         else if(intent.getAction() == "REPEAT_NOTIFICATION")
         {
             Log.i(LOG_TAG, "Received repeat notification event");
             Notification notification = intent.getParcelableExtra(NOTIFICATION);
-            notificationManager.notify(id, notification);
-        }
+            notificationManager.notify(id, notification); // display or update notification
+        }   // Dismiss notification event
         else if(intent.getAction() == "DISMISS_NOTIFICATION")
         {
             Log.i(LOG_TAG, "Received dismiss notification event");
             notificationManager.cancel(id);
-        }
+        }   // Set an Alarm for upcoming meeting
         else if(intent.getAction() == "ALARM_FOR_MEETING")
         {
             Log.i(LOG_TAG, "Received intent to schedule an alarm for upcoming meeting");
             Meeting meeting = (Meeting)intent.getSerializableExtra("meeting");
             UpcomingMeetingNotification notif = new UpcomingMeetingNotification(context, FriendTrackerUtil.ALARM_FOR_MEETING);
             System.err.println(meeting.toString());
-            Notification notificaition = notif.getNotification(meeting);
+            Notification notification = notif.getNotification(meeting);
             long millisBefore = meeting.getStartTime().getTime() - 5*60*1000; //5 minutes
-            notif.scheduleDelayNotification(notificaition, millisBefore);
-        }
+            notif.scheduleDelayNotification(notification, millisBefore);
+        }   // Creates the suggested meeting if user has said yes on notification
         else if(intent.getAction() == "CREATE_SUGGESTED_MEETING")
         {
             Log.i(LOG_TAG, "User said yes to creating the suggested meeting");
@@ -90,13 +92,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                 Log.i(LOG_TAG, String.format(Locale.getDefault(),"Meeting added %s", meeting.toString()));
                 Toast.makeText(context, "Added new Meeting", Toast.LENGTH_LONG).show();
             }
-            new DBMeetingHelper(context).insertMeeting(meeting);
-            notificationManager.cancel(id);
+            new DBMeetingHelper(context).insertMeeting(meeting); // Add to DB, need to change to thread
+            notificationManager.cancel(id); // cancel notification or else will suggest for next friend
         }
-    }
-
-    public void suggestNowNotification(Context context)
-    {
-        SuggestNowNotification suggestNowNotification = new SuggestNowNotification(context, FriendTrackerUtil.SUGGEST_NOW_NOTIFICATON_ID);
     }
 }

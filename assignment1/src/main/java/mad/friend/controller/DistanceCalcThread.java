@@ -42,7 +42,7 @@ public class DistanceCalcThread extends Thread {
     public void run()
     {
         Log.i(LOG_TAG, "run()");
-        // while the app does not have the relevant data
+        // while the app does not have the relevant data i.e. no friend location or your location
         while (FriendModel.getInstance().getLatitude() == 0 || FriendModel.getInstance().getLongitude() == 0
                 || FriendModel.getInstance().getFriendLocation().isEmpty())
         {
@@ -54,6 +54,7 @@ public class DistanceCalcThread extends Thread {
             }
         }
 
+        // Distance calculation
         Log.i(LOG_TAG, "Calculating distance");
         uLatitude = FriendModel.getInstance().getLatitude();
         uLongitude = FriendModel.getInstance().getLongitude();
@@ -61,7 +62,7 @@ public class DistanceCalcThread extends Thread {
         {
             if(FriendModel.getInstance().getFriendLocation().containsKey(friend.getName()))
             {
-                //Compute mid point
+                // Compute mid point
                 // Get friend location in form of (lat,long) and grab just the lat and long data
                 String fLocation = (String) FriendModel.getInstance().getFriendLocation().get(friend.getName());
                 String[] tokens = fLocation.replace("(","").replace(")","").split(",");
@@ -78,7 +79,8 @@ public class DistanceCalcThread extends Thread {
                                 "mLatitude %f mLongitude %f", uLatitude, uLongitude, fLatitude, fLongitude,
                         mLatitude, mLongitude));
 
-                // WalkingData object set your walk time, friends walk time, and which friend.
+                // WalkingData object set your walk time, friends walk time, and which friend
+                // and the mid point latitude and longitude details
                 walkingData.setFriend(friend);
                 walkingData.setLatitude(mLatitude);
                 walkingData.setLongitude(mLongitude);
@@ -97,12 +99,13 @@ public class DistanceCalcThread extends Thread {
                     e.printStackTrace();
                 }
 
-                // Add to WalkingDataModel once both are computed
+                // Add to WalkingDataModel once both yours and your friends walking time are computed
                 if(walkingData.timeIsSet())
                 {
                     WalkingDataModel.getInstance().addToWalkingList(walkingData);
                     Log.i(LOG_TAG, walkingData.toString());
-                    walkingData = new WalkingData(); // reset walking data for each friend
+                    // reset walking data for each friend
+                    walkingData = new WalkingData();
                 }
                 else
                 {
@@ -112,12 +115,20 @@ public class DistanceCalcThread extends Thread {
             }
         }//for
         Log.i(LOG_TAG,WalkingDataModel.getInstance().toString());
+        // After data has been collected, send a suggest now meeting to user
         Intent suggestIntent = new Intent(caller, NotificationReceiver.class);
         suggestIntent.setAction("SUGGEST_NOW_NOTIFICATION");
         caller.sendBroadcast(suggestIntent);
-    }
+    }// run()
 
-    // google distance matrix code, default mode walking
+    /**
+     * Google distance matrix code, default mode walking
+     * @param sLatitude source Latitude
+     * @param sLongitude source Longitude
+     * @param tLatitude target Latitude
+     * @param tLongitude target Longitude
+     * @return URL string to send to google distance matrix API based on @params
+     */
     public String urlString(double sLatitude, double sLongitude, double tLatitude, double tLongitude)
     {
         StringBuilder sb = new StringBuilder();
@@ -128,6 +139,14 @@ public class DistanceCalcThread extends Thread {
         return sb.toString();
     }
 
+    /**
+     *
+     * @param sLatitude source Latitude
+     * @param sLongitude source Longitude
+     * @param tLatitude target Latitude
+     * @param tLongitude target Longitude
+     * @return JSON String from Google Distance Matrix API based off @params
+     */
     public String returnJSONStringfromURL(double sLatitude, double sLongitude, double tLatitude, double tLongitude)
     {
         try {
@@ -167,9 +186,10 @@ public class DistanceCalcThread extends Thread {
     }
 
     /**
-     *
+     * Sets the walking time of you or your friend towards the midpoint from the JSON response
+     * from Google Distance Matrix API
      * @param jsonString The JSON request given form Google Distance Matrix API
-     * @param you_or_friend WalkingDataModel.you OR WalkingDataModel.theirs. Specifies whos time to set
+     * @param you_or_friend WalkingDataModel.you OR WalkingDataModel.theirs. Specifies whos time to set.
      * @throws Exception
      */
     public void setWalkingTime(String jsonString, int you_or_friend) throws Exception
