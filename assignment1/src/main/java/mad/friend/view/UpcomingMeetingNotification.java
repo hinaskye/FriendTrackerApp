@@ -9,18 +9,21 @@ import android.support.v4.app.NotificationCompat;
 import hinaskye.assignment1.R;
 import mad.friend.controller.receiver.NotificationReceiver;
 import mad.friend.model.Meeting;
-import mad.friend.view.model.FriendTrackerNotification;
 import util.FriendTrackerUtil;
 
 /**
  * Upcoming meeting notification
  * Sets the content of the notification to an upcoming meeting
  */
-public class UpcomingMeetingNotification extends FriendTrackerNotification {
+public class UpcomingMeetingNotification {
+
+    private Context current;
+    private int id;
 
     public UpcomingMeetingNotification(Context caller, int id)
     {
-        super(caller, id);
+        current = caller;
+        this.id = id;
     }
 
     /* Returns the Notification object containing the meeting data */

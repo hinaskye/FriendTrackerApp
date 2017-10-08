@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 
 import java.sql.Time;
@@ -14,25 +13,26 @@ import java.util.Locale;
 
 import hinaskye.assignment1.R;
 import mad.friend.controller.receiver.NotificationReceiver;
-import mad.friend.model.Friend;
 import mad.friend.model.Meeting;
 import mad.friend.model.WalkingData;
 import mad.friend.model.WalkingDataModel;
-import mad.friend.view.model.FriendTrackerNotification;
 import util.FriendTrackerUtil;
 
 /**
- * Created by Hinaskye on 5/10/2017.
+ * SuggestNowNotification
+ * Builds a notification based on nearby friends and your location
  */
+public class SuggestNowNotification {
 
-public class SuggestNowNotification extends FriendTrackerNotification {
-
+    private Context current;
+    private int id;
     WalkingDataModel walkingDataModel = WalkingDataModel.getInstance();
     WalkingData currentData;
 
     public SuggestNowNotification(Context caller, int id)
     {
-        super(caller, id);
+        current = caller;
+        this.id = id;
         if(walkingDataModel.currentIndex<walkingDataModel.getListSize())
         {
             currentData = walkingDataModel.getWalkingList().get(walkingDataModel.currentIndex);

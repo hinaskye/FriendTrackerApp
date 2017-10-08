@@ -41,84 +41,83 @@ public class DistanceCalcThread extends Thread {
     @Override
     public void run()
     {
-        Log.i(LOG_TAG, "run()");
-        // while the app does not have the relevant data i.e. no friend location or your location
-        while (FriendModel.getInstance().getLatitude() == 0 || FriendModel.getInstance().getLongitude() == 0
-                || FriendModel.getInstance().getFriendLocation().isEmpty())
-        {
-            try {
-                // sleep for 2 secs
-                Thread.sleep(2 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        // Limits this thread to only one instance as we don't want to calculate distance in multiple threads
+        if(!FriendModel.getInstance().isCalcDist) {
+            FriendModel.getInstance().isCalcDist = true;
+            Log.i(LOG_TAG, "run()");
+            // while the app does not have the relevant data i.e. no friend location or your location
+            while (FriendModel.getInstance().getLatitude() == 0 || FriendModel.getInstance().getLongitude() == 0
+                    || FriendModel.getInstance().getFriendLocation().isEmpty()) {
+                try {
+                    // sleep for 2 secs
+                    Thread.sleep(2 * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
+            // Distance calculation
+            Log.i(LOG_TAG, "Calculating distance");
+            uLatitude = FriendModel.getInstance().getLatitude();
+            uLongitude = FriendModel.getInstance().getLongitude();
+            for (Friend friend : FriendModel.getInstance().getFriends()) {
+                if (FriendModel.getInstance().getFriendLocation().containsKey(friend.getName())) {
+                    // Compute mid point
+                    // Get friend location in form of (lat,long) and grab just the lat and long data
+                    String fLocation = (String) FriendModel.getInstance().getFriendLocation().get(friend.getName());
+                    String[] tokens = fLocation.replace("(", "").replace(")", "").split(",");
+
+                    fLatitude = Double.parseDouble(tokens[0]);
+                    fLongitude = Double.parseDouble(tokens[1]);
+
+                    // calc mid point
+                    mLatitude = (uLatitude + fLatitude) / 2.0;
+                    mLongitude = (uLongitude + fLongitude) / 2.0;
+
+                    // DEBUG print yours, friends and mid point lat and long values
+                    Log.d(LOG_TAG, String.format("uLatitude %f uLongitude %f fLatitude %f fLongitude %f " +
+                                    "mLatitude %f mLongitude %f", uLatitude, uLongitude, fLatitude, fLongitude,
+                            mLatitude, mLongitude));
+
+                    // WalkingData object set your walk time, friends walk time, and which friend
+                    // and the mid point latitude and longitude details
+                    walkingData.setFriend(friend);
+                    walkingData.setLatitude(mLatitude);
+                    walkingData.setLongitude(mLongitude);
+                    // Your walk time to the mid point
+                    try {
+                        String yourRequest = returnJSONStringfromURL(uLatitude, uLongitude, mLatitude, mLongitude);
+                        setWalkingTime(yourRequest, WalkingDataModel.you);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    // Friend's walk time to mid point
+                    try {
+                        String friendRequest = returnJSONStringfromURL(fLatitude, fLongitude, mLatitude, mLongitude);
+                        setWalkingTime(friendRequest, WalkingDataModel.theirs);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    // Add to WalkingDataModel once both yours and your friends walking time are computed
+                    if (walkingData.timeIsSet()) {
+                        WalkingDataModel.getInstance().addToWalkingList(walkingData);
+                        Log.i(LOG_TAG, walkingData.toString());
+                        // reset walking data for each friend
+                        walkingData = new WalkingData();
+                    } else {
+                        Log.e(LOG_TAG, "walking time of both yours and friends not set");
+                        Log.e(LOG_TAG, walkingData.toString());
+                    }
+                }
+            }//for
+            Log.i(LOG_TAG, WalkingDataModel.getInstance().toString());
+            // After data has been collected, send a suggest now meeting to user
+            Intent suggestIntent = new Intent(caller, NotificationReceiver.class);
+            suggestIntent.setAction("SUGGEST_NOW_NOTIFICATION");
+            caller.sendBroadcast(suggestIntent);
+            FriendModel.getInstance().isCalcDist = false;
         }
-
-        // Distance calculation
-        Log.i(LOG_TAG, "Calculating distance");
-        uLatitude = FriendModel.getInstance().getLatitude();
-        uLongitude = FriendModel.getInstance().getLongitude();
-        for(Friend friend : FriendModel.getInstance().getFriends())
-        {
-            if(FriendModel.getInstance().getFriendLocation().containsKey(friend.getName()))
-            {
-                // Compute mid point
-                // Get friend location in form of (lat,long) and grab just the lat and long data
-                String fLocation = (String) FriendModel.getInstance().getFriendLocation().get(friend.getName());
-                String[] tokens = fLocation.replace("(","").replace(")","").split(",");
-
-                fLatitude = Double.parseDouble(tokens[0]);
-                fLongitude = Double.parseDouble(tokens[1]);
-
-                // calc mid point
-                mLatitude = (uLatitude + fLatitude)/2.0;
-                mLongitude = (uLongitude + fLongitude)/2.0;
-
-                // DEBUG print yours, friends and mid point lat and long values
-                Log.d(LOG_TAG, String.format("uLatitude %f uLongitude %f fLatitude %f fLongitude %f " +
-                                "mLatitude %f mLongitude %f", uLatitude, uLongitude, fLatitude, fLongitude,
-                        mLatitude, mLongitude));
-
-                // WalkingData object set your walk time, friends walk time, and which friend
-                // and the mid point latitude and longitude details
-                walkingData.setFriend(friend);
-                walkingData.setLatitude(mLatitude);
-                walkingData.setLongitude(mLongitude);
-                // Your walk time to the mid point
-                try {
-                    String yourRequest = returnJSONStringfromURL(uLatitude, uLongitude, mLatitude, mLongitude);
-                    setWalkingTime(yourRequest, WalkingDataModel.you);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                // Friend's walk time to mid point
-                try {
-                    String friendRequest = returnJSONStringfromURL(fLatitude, fLongitude, mLatitude, mLongitude);
-                    setWalkingTime(friendRequest, WalkingDataModel.theirs);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                // Add to WalkingDataModel once both yours and your friends walking time are computed
-                if(walkingData.timeIsSet())
-                {
-                    WalkingDataModel.getInstance().addToWalkingList(walkingData);
-                    Log.i(LOG_TAG, walkingData.toString());
-                    // reset walking data for each friend
-                    walkingData = new WalkingData();
-                }
-                else
-                {
-                    Log.e(LOG_TAG, "walking time of both yours and friends not set");
-                    Log.e(LOG_TAG, walkingData.toString());
-                }
-            }
-        }//for
-        Log.i(LOG_TAG,WalkingDataModel.getInstance().toString());
-        // After data has been collected, send a suggest now meeting to user
-        Intent suggestIntent = new Intent(caller, NotificationReceiver.class);
-        suggestIntent.setAction("SUGGEST_NOW_NOTIFICATION");
-        caller.sendBroadcast(suggestIntent);
     }// run()
 
     /**

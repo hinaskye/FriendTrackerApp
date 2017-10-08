@@ -18,6 +18,7 @@ import mad.friend.model.WalkingDataModel;
 import mad.friend.model.database.DBMeetingHelper;
 import mad.friend.view.SuggestNowNotification;
 import mad.friend.view.UpcomingMeetingNotification;
+import mad.friend.view.model.FriendTrackerAlarmManager;
 import util.FriendTrackerUtil;
 
 /**
@@ -77,10 +78,9 @@ public class NotificationReceiver extends BroadcastReceiver {
             Log.i(LOG_TAG, "Received intent to schedule an alarm for upcoming meeting");
             Meeting meeting = (Meeting)intent.getSerializableExtra("meeting");
             UpcomingMeetingNotification notif = new UpcomingMeetingNotification(context, FriendTrackerUtil.ALARM_FOR_MEETING);
-            System.err.println(meeting.toString());
             Notification notification = notif.getNotification(meeting);
             long millisBefore = meeting.getStartTime().getTime() - 5*60*1000; //5 minutes
-            notif.scheduleDelayNotification(notification, millisBefore);
+            new FriendTrackerAlarmManager(context).scheduleDelayNotification(notification, id, millisBefore);
         }   // Creates the suggested meeting if user has said yes on notification
         else if(intent.getAction() == "CREATE_SUGGESTED_MEETING")
         {
@@ -91,8 +91,15 @@ public class NotificationReceiver extends BroadcastReceiver {
                 MeetingModel.getInstance().addMeeting(meeting);
                 Log.i(LOG_TAG, String.format(Locale.getDefault(),"Meeting added %s", meeting.toString()));
                 Toast.makeText(context, "Added new Meeting", Toast.LENGTH_LONG).show();
+                new DBMeetingHelper(context).insertMeeting(meeting); // Add to DB, need to change to thread
+
+                // After meeting has been added, send an upcoming meeting alarm intent
+                Intent alarmIntent = new Intent(context, NotificationReceiver.class);
+                alarmIntent.setAction("ALARM_FOR_MEETING");
+                alarmIntent.putExtra("meeting", meeting);
+                context.sendBroadcast(alarmIntent);
+
             }
-            new DBMeetingHelper(context).insertMeeting(meeting); // Add to DB, need to change to thread
             notificationManager.cancel(id); // cancel notification or else will suggest for next friend
         }
     }

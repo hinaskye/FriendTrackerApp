@@ -15,21 +15,18 @@ import util.FriendTrackerUtil;
  * Any notification from friend tracker should extend this class
  * Provides method to scheduleDelayNotification
  */
-public abstract class FriendTrackerNotification {
+public class FriendTrackerAlarmManager {
 
-    public Context current;
-    public int id;
-
+    private Context current;
     private String LOG_TAG = this.getClass().getName();
 
-    public FriendTrackerNotification(Context caller, int id)
+    public FriendTrackerAlarmManager(Context caller)
     {
         current = caller;
-        this.id =  id;
     }
 
     // schedules an event after x milliseconds
-    public void scheduleDelayNotification(Notification notification, long millis)
+    public void scheduleDelayNotification(Notification notification, int id, long millis)
     {
         // Sends an intent to notification receiver class to deal with
         Intent notificationIntent = new Intent(current, NotificationReceiver.class);
@@ -49,7 +46,7 @@ public abstract class FriendTrackerNotification {
      *  Schedules a notification at an exact time
      *  @param exactTime time from epoch
      */
-    public void scheduleNotification(Notification notification, long exactTime)
+    public void scheduleNotification(Notification notification, int id, long exactTime)
     {
         // Sends an intent to notification receiver class to deal with
         Intent notificationIntent = new Intent(current, NotificationReceiver.class);
@@ -64,7 +61,7 @@ public abstract class FriendTrackerNotification {
     }
 
     // repeats a notification every x minutes
-    public void repeatNotification(Notification notification, double minutes)
+    public void repeatNotification(Notification notification, int id, double minutes)
     {
         long milliseconds = (long) (minutes * 60 * 1000);
         Log.i(LOG_TAG, String.format("minutes:%f\tmilliseconds:%d", minutes, milliseconds));

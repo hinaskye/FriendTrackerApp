@@ -133,8 +133,8 @@ public class FriendListActivity extends AppCompatActivity
         // Make notification for just the first meeting to test code
         Notification firstMeetingNotif = upcomingMeetingNotification.getNotification(MeetingModel.getInstance().getMeetings().get(0));
         // notify us in 5 seconds
-        //upcomingMeetingNotification.scheduleDelayNotification(firstMeetingNotif, 5000);
-        upcomingMeetingNotification.repeatNotification(firstMeetingNotif, 0.5);*/
+        //new FriendTrackerAlarmManager(this).scheduleDelayNotification(firstMeetingNotif, id, 5000);
+        upcomingMeetingNotification.repeatNotification(firstMeetingNotif, id, 0.5);*/
 
         // Sends an intent to check network changes, Registers network change receiver to class
         IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
