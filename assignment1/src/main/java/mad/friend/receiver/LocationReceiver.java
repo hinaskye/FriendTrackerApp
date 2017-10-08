@@ -20,10 +20,13 @@ public class LocationReceiver extends BroadcastReceiver {
         Log.i(LOG_TAG, "onReceive()");
         if(intent.getAction() == "LOCATION_CHANGED")
         {
-            Log.i(LOG_TAG, "LOCATION_CHANGED action received");
+            Log.i(LOG_TAG, "LOCATION_CHANGED");
+            Thread distCalcThread = new DistanceCalcThread(context);
+            distCalcThread.start();
         }
         else if(intent.getAction() == "SUGGEST_NOW")
         {
+            Log.i(LOG_TAG, "SUGGEST_NOW");
             Thread distCalcThread = new DistanceCalcThread(context);
             distCalcThread.start();
         }

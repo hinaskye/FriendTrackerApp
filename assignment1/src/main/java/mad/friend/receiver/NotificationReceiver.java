@@ -14,6 +14,7 @@ import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
 import mad.friend.model.WalkingDataModel;
 import mad.friend.model.database.DBMeetingHelper;
+import mad.friend.view.RemindDialog;
 import mad.friend.view.SuggestNowNotification;
 import mad.friend.view.UpcomingMeetingNotification;
 import mad.friend.view.model.FriendTrackerAlarmManager;
@@ -110,6 +111,15 @@ public class NotificationReceiver extends BroadcastReceiver {
             MeetingModel.getInstance().getMeetings().remove(meeting);
             Toast.makeText(context, "Removed upcoming Meeting", Toast.LENGTH_LONG).show();
 
+        }
+        else if(intent.getAction() == "REMIND_IN")
+        {
+            Log.i(LOG_TAG, "Remind user intent activated");
+            Log.e(LOG_TAG, "Functionality current not working");
+            /*
+            RemindDialog remindDialog = new RemindDialog(context);
+            remindDialog.setContents();
+            remindDialog.show();*/
         }
     }
 }
