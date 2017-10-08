@@ -80,7 +80,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             UpcomingMeetingNotification notif = new UpcomingMeetingNotification(context, FriendTrackerUtil.ALARM_FOR_MEETING);
             Notification notification = notif.getNotification(meeting);
             long millisBefore = meeting.getStartTime().getTime() - 5*60*1000; //5 minutes
-            new FriendTrackerAlarmManager(context).scheduleDelayNotification(notification, id, millisBefore);
+            new FriendTrackerAlarmManager(context).scheduleNotification(notification, id, millisBefore);
         }   // Creates the suggested meeting if user has said yes on notification
         else if(intent.getAction() == "CREATE_SUGGESTED_MEETING")
         {
@@ -101,6 +101,14 @@ public class NotificationReceiver extends BroadcastReceiver {
 
             }
             notificationManager.cancel(id); // cancel notification or else will suggest for next friend
+        }
+        else if(intent.getAction() == "CANCEL_MEETING")
+        {
+            Log.i(LOG_TAG, "User said cancel upcoming meeting");
+            Meeting meeting = (Meeting) intent.getSerializableExtra("meeting");
+            MeetingModel.getInstance().getMeetings().remove(meeting);
+            new DBMeetingHelper(context).deleteMeeting(meeting.getId());
+            Toast.makeText(context, "Removed upcoming Meeting", Toast.LENGTH_LONG).show();
         }
     }
 }

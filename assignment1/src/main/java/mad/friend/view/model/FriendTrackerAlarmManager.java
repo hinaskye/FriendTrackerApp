@@ -57,7 +57,7 @@ public class FriendTrackerAlarmManager {
                 FriendTrackerUtil.NOTIFY_OF_NOTIFICATION, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager)current.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, exactTime, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, exactTime, pendingIntent);
     }
 
     // repeats a notification every x minutes
