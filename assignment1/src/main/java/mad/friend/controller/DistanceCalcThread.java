@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import mad.friend.controller.receiver.NotificationReceiver;
+import mad.friend.receiver.NotificationReceiver;
 import mad.friend.model.Friend;
 import mad.friend.model.FriendModel;
 import mad.friend.model.WalkingData;

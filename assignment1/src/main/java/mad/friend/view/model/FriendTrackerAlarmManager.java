@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
-import mad.friend.controller.receiver.NotificationReceiver;
+import mad.friend.receiver.NotificationReceiver;
 import util.FriendTrackerUtil;
 
 /**

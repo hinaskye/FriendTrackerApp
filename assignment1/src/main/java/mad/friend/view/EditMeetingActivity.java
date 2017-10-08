@@ -1,6 +1,7 @@
 package mad.friend.view;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import hinaskye.assignment1.R;
+import mad.friend.SaveInDBAsyncTask;
 import mad.friend.controller.DisplayMapsListener;
 import mad.friend.controller.meeting.DeleteMeetingListener;
 import mad.friend.controller.meeting.MeetingAddFriendListener;
@@ -27,11 +29,8 @@ import mad.friend.controller.meeting.MeetingLocationListener;
 import mad.friend.controller.meeting.MeetingTimeListener;
 import mad.friend.controller.meeting.MeetingTitleListener;
 import mad.friend.model.Friend;
-import mad.friend.model.FriendModel;
 import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
-import mad.friend.model.database.DBFriendHelper;
-import mad.friend.model.database.DBMeetingHelper;
 import util.FriendTrackerUtil;
 
 /**
@@ -45,8 +44,6 @@ public class EditMeetingActivity extends AppCompatActivity {
     private int startTime = 0, endTime = 1;
     private int latitude = 0, longitude = 1;
 
-    private DBFriendHelper dbFriend;
-    private DBMeetingHelper dbMeeting;
     ArrayAdapter adapter;
     ListView meeting_friend_list;
 
@@ -55,9 +52,6 @@ public class EditMeetingActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         Log.i(LOG_TAG, "onCreate()");
-
-        dbFriend = new DBFriendHelper(this);
-        dbMeeting = new DBMeetingHelper(this);
 
         // set view
         setContentView(R.layout.edit_meeting);
@@ -155,8 +149,8 @@ public class EditMeetingActivity extends AppCompatActivity {
     {
         super.onStop();
         Log.i(LOG_TAG, "onStop()");
-        dbFriend.saveFriends(FriendModel.getInstance().getFriends());
-        dbMeeting.saveMeetings(MeetingModel.getInstance().getMeetings());
+        AsyncTask saveInDB = new SaveInDBAsyncTask(this);
+        saveInDB.execute();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package mad.friend.controller;
+package mad.friend;
 
 import android.Manifest;
 import android.app.Activity;
@@ -34,6 +34,7 @@ public class LocationService extends Service implements LocationListener {
 
     private static final long MIN_DIST_FOR_UPDATE = 10;
     private static final long UPDATE_TIME = 60*1000;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     private String LOG_TAG = this.getClass().getName();
 
@@ -43,9 +44,13 @@ public class LocationService extends Service implements LocationListener {
         Log.i(LOG_TAG, "onCreate()");
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
 
-        int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_DIST_FOR_UPDATE,
-                UPDATE_TIME, this);
+        int locationPermission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        if(locationPermission == PackageManager.PERMISSION_GRANTED)
+        {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_DIST_FOR_UPDATE,
+                    UPDATE_TIME, this);
+        }
     }
 
     @Override

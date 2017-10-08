@@ -1,12 +1,10 @@
-package mad.friend.controller.receiver;
+package mad.friend.receiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -77,8 +75,9 @@ public class NotificationReceiver extends BroadcastReceiver {
         {
             Log.i(LOG_TAG, "Received intent to schedule an alarm for upcoming meeting");
             Meeting meeting = (Meeting)intent.getSerializableExtra("meeting");
-            UpcomingMeetingNotification notif = new UpcomingMeetingNotification(context, FriendTrackerUtil.ALARM_FOR_MEETING);
-            Notification notification = notif.getNotification(meeting);
+            System.err.println(meeting.toString());
+            UpcomingMeetingNotification upcomingMeeting = new UpcomingMeetingNotification(context, FriendTrackerUtil.ALARM_FOR_MEETING);
+            Notification notification = upcomingMeeting.getNotification(meeting);
             long millisBefore = meeting.getStartTime().getTime() - 5*60*1000; //5 minutes
             new FriendTrackerAlarmManager(context).scheduleNotification(notification, id, millisBefore);
         }   // Creates the suggested meeting if user has said yes on notification
@@ -106,9 +105,11 @@ public class NotificationReceiver extends BroadcastReceiver {
         {
             Log.i(LOG_TAG, "User said cancel upcoming meeting");
             Meeting meeting = (Meeting) intent.getSerializableExtra("meeting");
-            MeetingModel.getInstance().getMeetings().remove(meeting);
+            System.err.println(meeting.toString());
             new DBMeetingHelper(context).deleteMeeting(meeting.getId());
+            MeetingModel.getInstance().getMeetings().remove(meeting);
             Toast.makeText(context, "Removed upcoming Meeting", Toast.LENGTH_LONG).show();
+
         }
     }
 }

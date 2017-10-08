@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import hinaskye.assignment1.R;
-import mad.friend.controller.receiver.NotificationReceiver;
+import mad.friend.receiver.NotificationReceiver;
 import mad.friend.model.Meeting;
 import util.FriendTrackerUtil;
 
@@ -33,6 +33,7 @@ public class UpcomingMeetingNotification {
         Intent intent = new Intent(current, NotificationReceiver.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(NotificationReceiver.NOTIFICATION_ID, id);
+        intent.putExtra("meeting", meeting);
         intent.setAction("CANCEL_MEETING");
         PendingIntent cancelIntent = PendingIntent.getBroadcast(current,
                 FriendTrackerUtil.UPCOMING_MEETING_CANCEL, intent, PendingIntent.FLAG_CANCEL_CURRENT);

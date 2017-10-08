@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,15 +20,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import hinaskye.assignment1.R;
+import mad.friend.SaveInDBAsyncTask;
 import mad.friend.controller.DistanceCalcThread;
-import mad.friend.controller.receiver.LocationReceiver;
-import mad.friend.controller.LocationService;
-import mad.friend.controller.receiver.NetworkChangeReceiver;
-import mad.friend.controller.receiver.NotificationReceiver;
+import mad.friend.receiver.LocationReceiver;
+import mad.friend.LocationService;
+import mad.friend.receiver.NetworkChangeReceiver;
+import mad.friend.receiver.NotificationReceiver;
 import mad.friend.controller.friend.AddContactListener;
 import mad.friend.controller.meeting.DisplayMeetingListListener;
 import mad.friend.controller.friend.EditFriendListener;
-import mad.friend.model.MeetingModel;
 import mad.friend.model.database.DBMeetingHelper;
 import mad.friend.view.model.FriendListAdapter;
 import mad.friend.model.Friend;
@@ -48,8 +49,7 @@ public class FriendListActivity extends AppCompatActivity
 
     protected static final int PICK_CONTACTS = 100;
     private final int ID_LENGTH = 4; //~4^36 available ids from a-z0-9
-    // idforDummyData is only used with dummy data, unique id code is also available
-    private static int idForDummyData = 1;
+    private boolean receiversCreated = false;
 
     private ArrayAdapter adapter;
     private ListView friendListView;
@@ -93,11 +93,6 @@ public class FriendListActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     FriendTrackerUtil.LOCATION_PERMISSION);
         }
-
-        createReceivers();
-
-        // Starts a service to get location data
-        startService(new Intent(this, LocationService.class));
     }
 
     @Override
@@ -136,10 +131,6 @@ public class FriendListActivity extends AppCompatActivity
         //new FriendTrackerAlarmManager(this).scheduleDelayNotification(firstMeetingNotif, id, 5000);
         upcomingMeetingNotification.repeatNotification(firstMeetingNotif, id, 0.5);*/
 
-        // Sends an intent to check network changes, Registers network change receiver to class
-        IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        this.registerReceiver(networkChangeReceiver, networkStatus);
-
         Thread thread = new DistanceCalcThread(this);
         thread.start();
     }
@@ -154,6 +145,21 @@ public class FriendListActivity extends AppCompatActivity
         Log.i(LOG_TAG, FriendModel.getInstance().toString());
         FriendModel.getInstance().printFriendLocation();
         friendListView.setAdapter(adapter);
+
+        int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if(locationPermission == PackageManager.PERMISSION_GRANTED && !receiversCreated)
+        {
+            createReceivers();
+            // Starts a service to get location data
+            startService(new Intent(this, LocationService.class));
+            receiversCreated = true;
+        }
+        // Sends an intent to check network changes, Registers network change receiver to class
+        IntentFilter networkStatus = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        if(networkChangeReceiver != null)
+        {
+            this.registerReceiver(networkChangeReceiver, networkStatus);
+        }
     }
 
      @Override
@@ -216,9 +222,8 @@ public class FriendListActivity extends AppCompatActivity
         super.onStop();
         Log.i(LOG_TAG, "onStop()");
 
-        dbFriend.saveFriends(FriendModel.getInstance().getFriends());
-        dbMeeting.saveMeetings(MeetingModel.getInstance().getMeetings());
-        Log.i(LOG_TAG, "Saved model in DB");
+        AsyncTask saveInDB = new SaveInDBAsyncTask(this);
+        saveInDB.execute();
     }
 
     @Override
@@ -226,7 +231,10 @@ public class FriendListActivity extends AppCompatActivity
     {
         super.onDestroy();
         Log.i(LOG_TAG, "onDestroy()");
-        this.unregisterReceiver(networkChangeReceiver);
+        if(networkChangeReceiver!=null)
+        {
+            this.unregisterReceiver(networkChangeReceiver);
+        }
     }
 
     public void createReceivers()

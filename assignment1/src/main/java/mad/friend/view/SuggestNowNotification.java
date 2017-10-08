@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import hinaskye.assignment1.R;
-import mad.friend.controller.receiver.NotificationReceiver;
+import mad.friend.receiver.NotificationReceiver;
 import mad.friend.model.Meeting;
 import mad.friend.model.WalkingData;
 import mad.friend.model.WalkingDataModel;

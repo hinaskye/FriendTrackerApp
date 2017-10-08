@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import mad.friend.controller.receiver.NotificationReceiver;
+import mad.friend.receiver.NotificationReceiver;
 import mad.friend.model.Meeting;
 import mad.friend.model.MeetingModel;
 import mad.friend.model.database.DBMeetingHelper;
