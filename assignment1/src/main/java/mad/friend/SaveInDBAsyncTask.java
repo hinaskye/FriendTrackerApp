@@ -10,6 +10,7 @@ import mad.friend.model.database.DBFriendHelper;
 import mad.friend.model.database.DBMeetingHelper;
 
 /**
+ * SaveInDBAsyncTask
  * Save Model to Database
  */
 public class SaveInDBAsyncTask extends AsyncTask {

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -46,6 +47,7 @@ public class FriendListActivity extends AppCompatActivity
 {
     // variables
     private String LOG_TAG = this.getClass().getName();
+    private String friendTrackerPrefs = "FriendTrackerPrefs";
 
     protected static final int PICK_CONTACTS = 100;
     private final int ID_LENGTH = 4; //~4^36 available ids from a-z0-9
@@ -85,9 +87,12 @@ public class FriendListActivity extends AppCompatActivity
         View fab_add_contact = findViewById(R.id.fab_add_contact);
         fab_add_contact.setOnClickListener(new AddContactListener(this));
 
+        // Set the default settings of our shared preferences
+        setSharedPref();
+
+        // Requests for location permission on start up,
+        // refer to controller.meeting.SuggestNowListener for example of request rational
         int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        // may want to how user why need permission
-        // https://developer.android.com/training/permissions/requesting.html#perm-request
         if(locationPermission != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -242,5 +247,14 @@ public class FriendListActivity extends AppCompatActivity
         networkChangeReceiver = new NetworkChangeReceiver();
         locationReceiver = new LocationReceiver();
         notificationReceiver = new NotificationReceiver();
+    }
+
+    public void setSharedPref()
+    {
+        SharedPreferences sharedPreferences = getSharedPreferences(friendTrackerPrefs, MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putInt("Meeting Suggest Frequency", 5);
+        edit.putInt("Meeting Reminder Before", 5);
+        edit.commit();
     }
 }//class

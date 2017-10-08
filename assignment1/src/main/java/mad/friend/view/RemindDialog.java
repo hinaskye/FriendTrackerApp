@@ -26,6 +26,7 @@ public class RemindDialog extends Dialog {
         Button ok = (Button) this.findViewById(R.id.remind_ok);
 
         // listeners
+        // TODO
         //cancel.setOnClickListener();
         //ok.setOnClickListener();
     }
